@@ -13,7 +13,7 @@ public:
 	static vector<Game*> gameStack;
 	virtual void InitialiseGame();
 	virtual void Update();
-	void Render();
+	virtual void Render();
 	virtual void CleanUp();
 	Game();
 	bool CollisionDetection(RECT A, RECT B);

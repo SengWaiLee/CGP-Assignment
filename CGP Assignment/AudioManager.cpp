@@ -18,8 +18,10 @@ void AudioManager::InitialiseAudio()
 
 void AudioManager::PlayMainMenuSound()
 {
+	StopMainMenuSound();
+	
 	result = system->playSound(mainMenuSound, 0, false, &bgmChannel);
-	bgmChannel->setVolume(1.0f);
+	bgmChannel->setVolume(SOUND_VOLUME);
 	bgmChannel->setPan(0.0f);
 	bgmChannel->setFrequency(44100);
 	bgmChannel->setPaused(false);
@@ -67,15 +69,15 @@ void AudioManager::PauseSounds() {
 
 void AudioManager::LoadSounds()
 {
-	result = system->createSound("Napple Tale_ Arsia in Daydream - Snowball (Dreamcast).mp3", FMOD_DEFAULT, 0, &mainMenuSound);
+	result = system->createSound("Assets/Napple Tale_ Arsia in Daydream - Snowball (Dreamcast).mp3", FMOD_DEFAULT, 0, &mainMenuSound);
 	result = mainMenuSound->setMode(FMOD_LOOP_NORMAL);
-	result = system->createSound("jump.mp3", FMOD_DEFAULT, 0, &jumpSound);
+	result = system->createSound("Assets/jump.mp3", FMOD_DEFAULT, 0, &jumpSound);
 	result = jumpSound->setMode(FMOD_LOOP_OFF);
-	result = system->createSound("land.ogg", FMOD_DEFAULT, 0, &landSound);
+	result = system->createSound("Assets/land.ogg", FMOD_DEFAULT, 0, &landSound);
 	result = landSound->setMode(FMOD_LOOP_OFF);
-	result = system->createSound("victory.wav", FMOD_DEFAULT, 0, &victory);
+	result = system->createSound("Assets/victory.wav", FMOD_DEFAULT, 0, &victory);
 	result = victory->setMode(FMOD_LOOP_OFF);
-	result = system->createSound("UIselect.wav", FMOD_DEFAULT, 0, &UISelectSound);
+	result = system->createSound("Assets/UIselect.wav", FMOD_DEFAULT, 0, &UISelectSound);
 	result = UISelectSound->setMode(FMOD_LOOP_OFF);
 }
 
@@ -99,4 +101,22 @@ void AudioManager::VolumeControl(float volume) {
 		volume = 0.0f;
 	}
 	bgmChannel->setVolume(volume);
+}
+
+void AudioManager::StopMainMenuSound()
+{
+	if (bgmChannel != nullptr)
+	{
+		bgmChannel->stop();
+		bgmChannel = nullptr;
+	}
+}
+
+void AudioManager::StopVictorySound()
+{
+	if (channel != nullptr)
+	{
+		channel->stop();
+		channel = nullptr;
+	}
 }

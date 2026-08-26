@@ -20,8 +20,10 @@ public:
     GameObject* unmuteButton;
     GameObject* mouseCursor;
     bool isMuted = false;
+    int volume = 100;
     void InitialiseGame();
     void Update();
+	void Render();
     void CleanUp();
     MainMenu();
 };

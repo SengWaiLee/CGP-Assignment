@@ -4,29 +4,29 @@ void Level1::InitialiseGame()
 {
 	friction = 0.9f;
 	gravity = 9.8f;
-	GameObject* bg = new GameObject((LPSTR)"level1bg.png", 1, 1, 1920, 1080, 0, 1, 1, 0, 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
+	GameObject* bg = new GameObject((LPSTR)"Assets/level1bg.png", 1, 1, 1920, 1080, 0, 1, 1, 0, 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(bg);
 
 
-	GameObject* platform5 = new GameObject((LPSTR)"platform.png", 1, 1, 2048, 925, 0, 1, 1, 0, 0, D3DXVECTOR2(1500.0f, 525.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.03f, 0.01f));
+	GameObject* platform5 = new GameObject((LPSTR)"Assets/platform.png", 1, 1, 2048, 925, 0, 1, 1, 0, 0, D3DXVECTOR2(1500.0f, 525.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.03f, 0.01f));
 	gameObject.push_back(platform5);
 
-	GameObject* platform4 = new GameObject((LPSTR)"platform.png", 1, 1, 2048, 925, 0, 1, 1, 0, 0, D3DXVECTOR2(950.0f, 400.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.2f, 0.01f));
+	GameObject* platform4 = new GameObject((LPSTR)"Assets/platform.png", 1, 1, 2048, 925, 0, 1, 1, 0, 0, D3DXVECTOR2(950.0f, 400.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.2f, 0.01f));
 	gameObject.push_back(platform4);
 
-	GameObject* platform3 = new GameObject((LPSTR)"platform.png", 1, 1, 2048, 925, 0, 1, 1, 0, 0, D3DXVECTOR2(1250.0f, 625.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.025f, 0.01f));
+	GameObject* platform3 = new GameObject((LPSTR)"Assets/platform.png", 1, 1, 2048, 925, 0, 1, 1, 0, 0, D3DXVECTOR2(1250.0f, 625.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.025f, 0.01f));
 	gameObject.push_back(platform3);
 
-	GameObject* platform2 = new GameObject((LPSTR)"platform.png", 1, 1, 2048, 925, 0, 1, 1, 0, 0, D3DXVECTOR2(800.0f, 725.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.1f, 0.01f));
+	GameObject* platform2 = new GameObject((LPSTR)"Assets/platform.png", 1, 1, 2048, 925, 0, 1, 1, 0, 0, D3DXVECTOR2(800.0f, 725.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.1f, 0.01f));
 	gameObject.push_back(platform2);
 
-	GameObject* platform = new GameObject((LPSTR)"platform.png", 1, 1, 2048, 925, 0, 1, 1, 0, 0, D3DXVECTOR2(500.0f, 850.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.07f, 0.01f));
+	GameObject* platform = new GameObject((LPSTR)"Assets/platform.png", 1, 1, 2048, 925, 0, 1, 1, 0, 0, D3DXVECTOR2(500.0f, 850.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.07f, 0.01f));
 	gameObject.push_back(platform);
 
-	GameObject* destination = new GameObject((LPSTR)"flag.png", 1, 5, 300, 60, 0, 5, 0, 0, 0, D3DXVECTOR2(950.0f, 330.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
+	GameObject* destination = new GameObject((LPSTR)"Assets/flag.png", 1, 5, 300, 60, 0, 5, 0, 0, 0, D3DXVECTOR2(950.0f, 330.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(destination);
 
-	GameObject* militia = new GameObject((LPSTR)"militia.png", 4, 4, 128, 192, 2, 4, 0, 25, 10, D3DXVECTOR2(0.0f, 100.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 555, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(2.0f, 2.0f));
+	GameObject* militia = new GameObject((LPSTR)"Assets/militia.png", 4, 4, 128, 192, 2, 4, 0, 25, 10, D3DXVECTOR2(0.0f, 100.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 555, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(2.0f, 2.0f));
 	gameObject.push_back(militia);
 	/*audio->PlayLvl1Bgm();*/
 }
@@ -210,6 +210,8 @@ void Level1::Update()
 		if (DirectInputManager::diKeys[DIK_B] & 0x80) {
 			Game::gameStack.back()->CleanUp();
 			Game::gameStack.pop_back();
+
+			AudioManager::PlayMainMenuSound();
 		}
 	}
 }

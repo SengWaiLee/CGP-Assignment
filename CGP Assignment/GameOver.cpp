@@ -24,6 +24,8 @@ void GameOver::Update()
 			replayText->scaling.y = 1.05f;
 
 			if (DirectInputManager::mouseState.rgbButtons[0] & 0x80) {
+				AudioManager::StopVictorySound(); 
+				
 				Game::gameStack.pop_back();
 				Game::gameStack.push_back(new Level1());
 				Game::gameStack.back()->InitialiseGame();
@@ -51,10 +53,13 @@ void GameOver::Update()
 
 
 			if (DirectInputManager::mouseState.rgbButtons[0] & 0x80) {
-				AudioManager::PlaySelectSounds();
+				AudioManager::StopVictorySound(); 
+				AudioManager::PlaySelectSounds(); 
+
 				Game::gameStack.pop_back();
 				Game::gameStack.push_back(new MainMenu());
 				Game::gameStack.back()->InitialiseGame();
+
 				this->CleanUp();
 				break;
 
@@ -104,20 +109,21 @@ void GameOver::Update()
 void GameOver::InitialiseGame()
 {
 	//initialize texture(background,game over), button(exit, retry), mouse cursor
+	AudioManager::StopMainMenuSound();
 	AudioManager::PlayVictorySounds();
-	GameObject* background = new GameObject((LPSTR)"background.png", 1, 1, 1920, 1080, 0, 1, 1, 0, 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
+	GameObject* background = new GameObject((LPSTR)"Assets/background.png", 1, 1, 1920, 1080, 0, 1, 1, 0, 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(background);
-	GameObject* gameOver = new GameObject((LPSTR)"victory.png", 1, 1, 512, 256, 0, 1, 1, 0, 0, D3DXVECTOR2(450.0f, 100.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(2.0f, 2.0f));
+	GameObject* gameOver = new GameObject((LPSTR)"Assets/victory.png", 1, 1, 512, 256, 0, 1, 1, 0, 0, D3DXVECTOR2(450.0f, 100.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(2.0f, 2.0f));
 	gameObject.push_back(gameOver);
-	GameObject* replayButton = new GameObject((LPSTR)"button.png", 1, 1, 256, 128, 0, 1, 1, 0, 0, D3DXVECTOR2(795.0f, 500.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.5f, 1.5f));
+	GameObject* replayButton = new GameObject((LPSTR)"Assets/button.png", 1, 1, 256, 128, 0, 1, 1, 0, 0, D3DXVECTOR2(795.0f, 500.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.5f, 1.5f));
 	gameObject.push_back(replayButton);
-	GameObject* replayText = new GameObject((LPSTR)"replay.png", 1, 1, 256, 128, 0, 1, 1, 0, 0, D3DXVECTOR2(855.0f, 525.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
+	GameObject* replayText = new GameObject((LPSTR)"Assets/replay.png", 1, 1, 256, 128, 0, 1, 1, 0, 0, D3DXVECTOR2(855.0f, 525.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(replayText);
-	GameObject* mainMenuButton = new GameObject((LPSTR)"button.png", 1, 1, 256, 128, 0, 1, 1, 0, 0, D3DXVECTOR2(795.0f, 700.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.5f, 1.5f));
+	GameObject* mainMenuButton = new GameObject((LPSTR)"Assets/button.png", 1, 1, 256, 128, 0, 1, 1, 0, 0, D3DXVECTOR2(795.0f, 700.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.5f, 1.5f));
 	gameObject.push_back(mainMenuButton);
-	GameObject* mainMenuText = new GameObject((LPSTR)"mainMenu.png", 1, 1, 256, 128, 0, 1, 1, 0, 0, D3DXVECTOR2(795.0f, 695.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.5f, 1.5f));
+	GameObject* mainMenuText = new GameObject((LPSTR)"Assets/mainMenu.png", 1, 1, 256, 128, 0, 1, 1, 0, 0, D3DXVECTOR2(795.0f, 695.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.5f, 1.5f));
 	gameObject.push_back(mainMenuText);
-	GameObject* mouseCursor = new GameObject((LPSTR)"pointer.png", 1, 1, 32, 32, 0, 1, 1, 0, 0, D3DXVECTOR2(700.0f, 500.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(2.0f, 2.0f));
+	GameObject* mouseCursor = new GameObject((LPSTR)"Assets/pointer.png", 1, 1, 32, 32, 0, 1, 1, 0, 0, D3DXVECTOR2(700.0f, 500.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(2.0f, 2.0f));
 	gameObject.push_back(mouseCursor);
 
 }

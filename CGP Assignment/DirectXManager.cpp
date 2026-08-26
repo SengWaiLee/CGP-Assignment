@@ -24,7 +24,7 @@ DirectXManager::DirectXManager()
 		printf("failed to create virtual gpu");
 
 	//	Create font. Study the documentation.
-	hr = D3DXCreateFont(myVirtualGPU, 25, 0, 0, 1, false,
+	hr = D3DXCreateFont(myVirtualGPU, 60, 0, 0, 1, false,
 		DEFAULT_CHARSET, OUT_TT_ONLY_PRECIS, DEFAULT_QUALITY,
 		DEFAULT_PITCH | FF_DONTCARE, "Arial", &font);
 	//	Create sprite. Study the documentation. 

@@ -21,6 +21,8 @@ public:
 	static void PlayLandSound();
 	static void PlayVictorySounds();
 	static void PlaySelectSounds();
+	static void StopMainMenuSound();
+	static void StopVictorySound();
 	void PlaySoundTrack();
 	void LoadSounds();
 	void updateSound();
