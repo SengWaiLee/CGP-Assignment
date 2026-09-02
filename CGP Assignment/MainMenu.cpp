@@ -13,7 +13,7 @@ void MainMenu::InitialiseGame()
 	}
 	else
 	{
-		volume = (int)(AudioManager::SOUND_VOLUME * 100);
+		volume = (int)(AudioManager::SOUND_VOLUME * 0);
 	}
 
 	RECT MainBGRect;
@@ -45,21 +45,21 @@ void MainMenu::InitialiseGame()
 	AsteroidBG1.Initialise("Assets/AsteroidBG1.png",AsteroidBG1Rect,1.00f,150.0f);
 	AsteroidBG2.Initialise("Assets/AsteroidBG2.png",AsteroidBG2Rect,1.20f,300.0f);
 
-	GameObject* gameTitle = new GameObject((LPSTR)"Assets/gametitle.png", 1, 1, 512, 109, 0, 1, 1, 0, 0, D3DXVECTOR2(450.0f, 80.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(2.0f, 2.0f));
+	GameObject* gameTitle = new GameObject((LPSTR)"Assets/GameTitle.png", 1, 1, 252, 320, 0, 1, 1, 0, 0, D3DXVECTOR2(850.0f, 80.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(gameTitle);
-	GameObject* level1Button = new GameObject((LPSTR)"Assets/level1button.png", 1, 1, 256, 128, 0, 1, 1, 0, 0, D3DXVECTOR2(795.0f, 300.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.5f, 1.5f));
+	GameObject* level1Button = new GameObject((LPSTR)"Assets/level1button.png", 1, 1, 256, 65, 0, 1, 1, 0, 0, D3DXVECTOR2(795.0f, 370.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.5f, 1.5f));
 	gameObject.push_back(level1Button);
-	GameObject* level2Button = new GameObject((LPSTR)"Assets/level2button.png", 1, 1, 256, 128, 0, 1, 1, 0, 0, D3DXVECTOR2(795.0f, 500.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.5f, 1.5f));
+	GameObject* level2Button = new GameObject((LPSTR)"Assets/level2button.png", 1, 1, 256, 65, 0, 1, 1, 0, 0, D3DXVECTOR2(795.0f, 570.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.5f, 1.5f));
 	gameObject.push_back(level2Button);
-	GameObject* quitGameButton = new GameObject((LPSTR)"Assets/quitgamebutton.png", 1, 1, 256, 128, 0, 1, 1, 0, 0, D3DXVECTOR2(795.0f, 700.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.5f, 1.5f));
+	GameObject* quitGameButton = new GameObject((LPSTR)"Assets/quitbutton.png", 1, 1, 256, 65, 0, 1, 1, 0, 0, D3DXVECTOR2(795.0f, 770.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.5f, 1.5f));
 	gameObject.push_back(quitGameButton);
-	GameObject* muteButton = new GameObject((LPSTR)"Assets/mutebutton.png", 1, 1, 64, 64, 0, 1, 1, 0, 0, D3DXVECTOR2(695.0f, 900.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
+	GameObject* muteButton = new GameObject((LPSTR)"Assets/mutebutton.png", 1, 1, 64, 64, 0, 1, 1, 0, 0, D3DXVECTOR2(695.0f, 970.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(muteButton);
-	GameObject* minusButton = new GameObject((LPSTR)"Assets/minusbutton.png", 1, 1, 64, 64, 0, 1, 1, 0, 0, D3DXVECTOR2(805.0f, 900.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
+	GameObject* minusButton = new GameObject((LPSTR)"Assets/minusbutton.png", 1, 1, 64, 64, 0, 1, 1, 0, 0, D3DXVECTOR2(805.0f, 970.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(minusButton);
-	GameObject* addButton = new GameObject((LPSTR)"Assets/addbutton.png", 1, 1, 64, 64, 0, 1, 1, 0, 0, D3DXVECTOR2(1115.0f, 900.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
+	GameObject* addButton = new GameObject((LPSTR)"Assets/addbutton.png", 1, 1, 64, 64, 0, 1, 1, 0, 0, D3DXVECTOR2(1115.0f, 970.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(addButton);
-	GameObject* unmuteButton = new GameObject((LPSTR)"Assets/unmutebutton.png", 1, 1, 64, 64, 0, 1, 1, 0, 0, D3DXVECTOR2(1225.0f, 900.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
+	GameObject* unmuteButton = new GameObject((LPSTR)"Assets/unmutebutton.png", 1, 1, 64, 64, 0, 1, 1, 0, 0, D3DXVECTOR2(1225.0f, 970.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(unmuteButton);
 	GameObject* mouseCursor = new GameObject((LPSTR)"Assets/pointer.png", 1, 1, 32, 32, 0, 1, 1, 0, 0, D3DXVECTOR2(700.0f, 500.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(mouseCursor);
@@ -302,16 +302,25 @@ void MainMenu::Render()
 
 		DirectXManager::spriteBrush->SetTransform(&gameObject->mat);
 
-		DirectXManager::spriteBrush->Draw(gameObject->texture, &gameObject->animRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+		if (gameObject == gameTitle)
+		{
+			DirectXManager::spriteBrush->Draw(gameObject->texture, &gameObject->titleRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+		}
+		else{
+			DirectXManager::spriteBrush->Draw(gameObject->texture, &gameObject->animRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+		}
+		
+
+
 	}
 
 	DirectXManager::spriteBrush->End();
 
 	RECT volumeRect;
 	volumeRect.left = 850;
-	volumeRect.top = 905;
+	volumeRect.top = 970;
 	volumeRect.right = 1130;
-	volumeRect.bottom = 970;
+	volumeRect.bottom = 1035;
 
 	string volumeText = to_string(volume);
 

@@ -11,7 +11,7 @@
 
 class MainMenu :    public Game
 {
-private:
+public:
 
     ParallaxLayer NebulaBG;
     ParallaxLayer FarStarsBG;
@@ -23,7 +23,6 @@ private:
     ParallaxLayer AsteroidBG1;
     ParallaxLayer AsteroidBG2;
 
-public:
     GameObject* gameTitle = nullptr;
     GameObject* level1Button = nullptr;
     GameObject* level2Button = nullptr;

@@ -5,31 +5,74 @@ void GameOver::InitialiseGame()
 	//initialize texture(background,game over), button(exit, retry), mouse cursor
 	AudioManager::StopBackgroundMusic();
 	AudioManager::PlayVictorySound();
-	GameObject* background = new GameObject((LPSTR)"Assets/background.png", 1, 1, 1920, 1080, 0, 1, 1, 0, 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
-	gameObject.push_back(background);
+	RECT MainBGRect;
+
+	MainBGRect.left = 40;
+	MainBGRect.top = 460;
+	MainBGRect.right = 1960;
+	MainBGRect.bottom = 1540;
+
+
+	RECT AsteroidBG1Rect;
+
+	AsteroidBG1Rect.left = 0;
+	AsteroidBG1Rect.top = 0;
+	AsteroidBG1Rect.right = 665;
+	AsteroidBG1Rect.bottom = 738;
+
+
+	RECT AsteroidBG2Rect;
+
+	AsteroidBG2Rect.left = 0;
+	AsteroidBG2Rect.top = 0;
+	AsteroidBG2Rect.right = 738;
+	AsteroidBG2Rect.bottom = 665;
+
+	NebulaBG.Initialise("Assets/NebulaBG.png",MainBGRect,0.10f);
+
+	FarStarsBG.Initialise("Assets/FarStarsBG.png",MainBGRect,0.20f);
+
+	MiddleStarsBG.Initialise("Assets/MiddleStarsBG.png",MainBGRect,0.35f);
+
+	PlanetBG.Initialise("Assets/PlanetBG.png",MainBGRect,0.45f);
+
+	DenseStarsBG.Initialise("Assets/DenseStarsBG.png",MainBGRect,0.60f);
+
+	NearStarsBG.Initialise("Assets/NearStarsBG.png",MainBGRect,0.80f);
+
+	AsteroidBG1.Initialise("Assets/AsteroidBG1.png",AsteroidBG1Rect,1.00f,150.0f);
+
+	AsteroidBG2.Initialise("Assets/AsteroidBG2.png",AsteroidBG2Rect,1.20f,300.0f);
+
 	GameObject* gameOver = new GameObject((LPSTR)"Assets/victory.png", 1, 1, 512, 256, 0, 1, 1, 0, 0, D3DXVECTOR2(450.0f, 100.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(2.0f, 2.0f));
 	gameObject.push_back(gameOver);
-	GameObject* replayButton = new GameObject((LPSTR)"Assets/button.png", 1, 1, 256, 128, 0, 1, 1, 0, 0, D3DXVECTOR2(795.0f, 500.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.5f, 1.5f));
+	GameObject* replayButton = new GameObject((LPSTR)"Assets/replaybutton.png", 1, 1, 256, 65, 0, 1, 1, 0, 0, D3DXVECTOR2(795.0f, 500.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.5f, 1.5f));
 	gameObject.push_back(replayButton);
-	GameObject* replayText = new GameObject((LPSTR)"Assets/replay.png", 1, 1, 256, 128, 0, 1, 1, 0, 0, D3DXVECTOR2(855.0f, 525.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
-	gameObject.push_back(replayText);
-	GameObject* mainMenuButton = new GameObject((LPSTR)"Assets/button.png", 1, 1, 256, 128, 0, 1, 1, 0, 0, D3DXVECTOR2(795.0f, 700.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.5f, 1.5f));
+	GameObject* mainMenuButton = new GameObject((LPSTR)"Assets/mainmenubutton.png", 1, 1, 256, 65, 0, 1, 1, 0, 0, D3DXVECTOR2(795.0f, 700.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.5f, 1.5f));
 	gameObject.push_back(mainMenuButton);
-	GameObject* mainMenuText = new GameObject((LPSTR)"Assets/mainMenu.png", 1, 1, 256, 128, 0, 1, 1, 0, 0, D3DXVECTOR2(795.0f, 695.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.5f, 1.5f));
-	gameObject.push_back(mainMenuText);
 	GameObject* mouseCursor = new GameObject((LPSTR)"Assets/pointer.png", 1, 1, 32, 32, 0, 1, 1, 0, 0, D3DXVECTOR2(700.0f, 500.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(mouseCursor);
 }
 
 void GameOver::Update()
 {
+	replayButton = gameObject.at(1);
+	mainMenuButton = gameObject.at(2);
+	mouseCursor = gameObject.at(3);
+
+	
+
 	for (int i = 0; i < frameTimer->framesToUpdate(); i++)
 	{
-		replayButton = gameObject.at(2);
-		replayText = gameObject.at(3);
-		mainMenuButton = gameObject.at(4);
-		mainMenuText = gameObject.at(5);
-		mouseCursor = gameObject.at(6);
+		NebulaBG.Update();
+		FarStarsBG.Update();
+		MiddleStarsBG.Update();
+		PlanetBG.Update();
+		DenseStarsBG.Update();
+		NearStarsBG.Update();
+
+		AsteroidBG1.Update();
+		AsteroidBG2.Update();
 
 		//update mouse cursor position
 		mouseCursor->pos.x += DirectInputManager::mouseState.lX * 5.0;
@@ -41,8 +84,6 @@ void GameOver::Update()
 			replayButton->scaling.x = 1.55f;
 			replayButton->scaling.y = 1.55f;
 
-			replayText->scaling.x = 1.05f;
-			replayText->scaling.y = 1.05f;
 
 			if (DirectInputManager::mouseState.rgbButtons[0] & 0x80) {
 				AudioManager::StopVictorySound(); 
@@ -51,16 +92,10 @@ void GameOver::Update()
 				Game::gameStack.push_back(new Level1());
 				Game::gameStack.back()->InitialiseGame();
 			}
-
-
 		}
 		else {
 			replayButton->scaling.x = 1.50f;
 			replayButton->scaling.y = 1.50f;
-
-			replayText->scaling.x = 1.0f;
-			replayText->scaling.y = 1.0f;
-
 		}
 
 		//collision detection of mouse cursor with the mainMenu button
@@ -68,10 +103,6 @@ void GameOver::Update()
 		{
 			mainMenuButton->scaling.x = 1.55f;
 			mainMenuButton->scaling.y = 1.55f;
-
-			mainMenuText->scaling.x = 1.55f;
-			mainMenuText->scaling.y = 1.55f;
-
 
 			if (DirectInputManager::mouseState.rgbButtons[0] & 0x80) {
 				AudioManager::StopVictorySound(); 
@@ -83,15 +114,11 @@ void GameOver::Update()
 
 				this->CleanUp();
 				break;
-
 			}
 		}
 		else {
 			mainMenuButton->scaling.x = 1.5f;
 			mainMenuButton->scaling.y = 1.5f;
-
-			mainMenuText->scaling.x = 1.5f;
-			mainMenuText->scaling.y = 1.5f;
 		}
 
 
@@ -126,8 +153,83 @@ void GameOver::Update()
 
 }
 
+void GameOver::Render()
+{
+	DirectXManager::myVirtualGPU->Clear(
+		0,
+		NULL,
+		D3DCLEAR_TARGET,
+		D3DCOLOR_XRGB(0, 0, 0),
+		1.0f,
+		0
+	);
+
+	DirectXManager::myVirtualGPU->BeginScene();
+
+	DirectXManager::spriteBrush->Begin(
+		D3DXSPRITE_ALPHABLEND
+	);
+
+
+	NebulaBG.Render();
+	FarStarsBG.Render();
+	MiddleStarsBG.Render();
+	PlanetBG.Render();
+	DenseStarsBG.Render();
+	NearStarsBG.Render();
+
+	AsteroidBG1.Render();
+	AsteroidBG2.Render();
+
+	for (GameObject* object : gameObject)
+	{
+		D3DXMatrixTransformation2D(
+			&object->mat,
+			NULL,
+			0.0f,
+			&object->scaling,
+			&object->spriteCenter,
+			object->rotation,
+			&object->pos
+		);
+
+		DirectXManager::spriteBrush->SetTransform(
+			&object->mat
+		);
+
+		DirectXManager::spriteBrush->Draw(
+			object->texture,
+			&object->animRect,
+			NULL,
+			NULL,
+			D3DCOLOR_XRGB(255, 255, 255)
+		);
+	}
+
+	DirectXManager::spriteBrush->End();
+
+	DirectXManager::myVirtualGPU->EndScene();
+
+	DirectXManager::myVirtualGPU->Present(
+		NULL,
+		NULL,
+		NULL,
+		NULL
+	);
+}
+
 void GameOver::CleanUp()
 {
+	NebulaBG.CleanUp();
+	FarStarsBG.CleanUp();
+	MiddleStarsBG.CleanUp();
+	PlanetBG.CleanUp();
+	DenseStarsBG.CleanUp();
+	NearStarsBG.CleanUp();
+
+	AsteroidBG1.CleanUp();
+	AsteroidBG2.CleanUp();
+
 	for (GameObject* gameObject : gameObject) {
 		gameObject->texture->Release();
 		gameObject->texture = NULL;

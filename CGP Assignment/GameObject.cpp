@@ -23,6 +23,10 @@ GameObject::GameObject(LPSTR textureName, int row, int col, int textureWidth, in
 	this->jumpVel = jumpVel;
 	this->jumpAccel = jumpAccel;
 	this->direction = direction;
+	this->titleRect.top = 0;
+	this->titleRect.bottom = this->textureHeight;
+	this->titleRect.left = 0;
+	this->titleRect.right = this->textureWidth;
 	this->animRect.top = direction * this->spriteHeight;
 	this->animRect.bottom = this->animRect.top + this->spriteHeight;
 	this->animRect.left = currentFrame % maxFrame % col * this->spriteWidth;

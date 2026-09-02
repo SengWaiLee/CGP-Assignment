@@ -27,9 +27,8 @@ void Level1::InitialiseGame()
 	GameObject* destination = new GameObject((LPSTR)"Assets/flag.png", 1, 5, 300, 60, 0, 5, 0, 0, 0, D3DXVECTOR2(950.0f, 330.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(destination);
 
-	GameObject* militia = new GameObject((LPSTR)"Assets/militia.png", 4, 4, 128, 192, 2, 4, 0, 25, 10, D3DXVECTOR2(0.0f, 100.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 600, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(2.0f, 2.0f));
+	GameObject* militia = new GameObject((LPSTR)"Assets/militia.png", 4, 4, 128, 192, 2, 4, 0, 25, 10, D3DXVECTOR2(0.0f, 100.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 900, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(2.0f, 2.0f));
 	gameObject.push_back(militia);
-	/*audio->PlayLvl1Bgm();*/
 }
 
 void Level1::Update()
@@ -135,12 +134,14 @@ void Level1::Update()
 		//collision detection between player and the destination
 		if (CollisionDetection(militia->colRect, destination->colRect)) {
 			cout << "won" << endl;
-			AudioManager::StopBackgroundMusic();
+			bool isGameWon = true;
 
-			Game::gameStack.pop_back();
-			Game::gameStack.push_back(new GameOver());
-			Game::gameStack.back()->InitialiseGame();
-			//this->CleanUp();
+			if (isGameWon) {
+				AudioManager::StopBackgroundMusic();
+				Game::gameStack.pop_back();
+				Game::gameStack.push_back(new GameOver());
+				Game::gameStack.back()->InitialiseGame();
+			}
 		}
 
 		//checking input for space bar

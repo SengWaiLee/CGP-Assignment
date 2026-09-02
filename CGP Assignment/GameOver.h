@@ -4,18 +4,34 @@
 #include "AudioManager.h"
 #include "MainMenu.h"
 #include "level1.h"
+#include "ParallaxLayer.h"
 
 class GameOver : public Game
 {
 public:
-	void Update();
-	void InitialiseGame();
-	void CleanUp();
-	GameOver();
+	ParallaxLayer NebulaBG;
+	ParallaxLayer FarStarsBG;
+	ParallaxLayer MiddleStarsBG;
+	ParallaxLayer PlanetBG;
+	ParallaxLayer DenseStarsBG;
+	ParallaxLayer NearStarsBG;
+
+	ParallaxLayer AsteroidBG1;
+	ParallaxLayer AsteroidBG2;
+
 	GameObject* replayButton;
-	GameObject* replayText;
+
 	GameObject* mainMenuButton;
-	GameObject* mainMenuText;
 
 	GameObject* mouseCursor;
+
+	void InitialiseGame() override;
+
+	void Update() override;
+
+	void Render() override;
+
+	void CleanUp() override;
+
+	GameOver();
 };

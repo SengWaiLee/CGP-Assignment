@@ -29,6 +29,7 @@ public:
 	D3DXVECTOR2 spriteCenter;
 	D3DXVECTOR2 engineForce;
 	float rotation;
+	RECT titleRect;
 	RECT animRect;
 	RECT colRect;
 	LPDIRECT3DTEXTURE9 texture;
