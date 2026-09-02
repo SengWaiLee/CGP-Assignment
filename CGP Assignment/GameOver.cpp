@@ -54,7 +54,7 @@ void GameOver::Update()
 
 			if (DirectInputManager::mouseState.rgbButtons[0] & 0x80) {
 				AudioManager::StopVictorySound(); 
-				AudioManager::PlaySelectSounds(); 
+				AudioManager::PlaySelectSound(); 
 
 				Game::gameStack.pop_back();
 				Game::gameStack.push_back(new MainMenu());
@@ -109,8 +109,8 @@ void GameOver::Update()
 void GameOver::InitialiseGame()
 {
 	//initialize texture(background,game over), button(exit, retry), mouse cursor
-	AudioManager::StopMainMenuSound();
-	AudioManager::PlayVictorySounds();
+	AudioManager::StopBackgroundMusic();
+	AudioManager::PlayVictorySound();
 	GameObject* background = new GameObject((LPSTR)"Assets/background.png", 1, 1, 1920, 1080, 0, 1, 1, 0, 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(background);
 	GameObject* gameOver = new GameObject((LPSTR)"Assets/victory.png", 1, 1, 512, 256, 0, 1, 1, 0, 0, D3DXVECTOR2(450.0f, 100.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(2.0f, 2.0f));

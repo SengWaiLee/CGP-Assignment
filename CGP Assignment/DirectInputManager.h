@@ -1,6 +1,7 @@
 #pragma once
 #include <dinput.h>
 #include "WindowManager.h"
+
 class DirectInputManager
 {
 public:

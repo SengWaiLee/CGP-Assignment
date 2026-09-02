@@ -4,10 +4,6 @@
 #include "DirectInputManager.h"
 #include "MainMenu.h"
 #include "Game.h"
-#include "FrameTimer.h"
-#include "Level1.h"
-#include "Level2.h"
-#include <iostream>
 
 using namespace std;
 
@@ -21,7 +17,7 @@ int main(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nSho
 	DirectInputManager* directInput = new DirectInputManager();
 	Game::gameStack.push_back(new MainMenu());
 	gameAudio->InitialiseAudio();
-	gameAudio->LoadSounds();
+	gameAudio->LoadSound();
 	Game::gameStack.back()->InitialiseGame();
 	while (gameWindowManager->WindowIsRunning())
 	{

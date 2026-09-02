@@ -1,9 +1,12 @@
 #include "WindowManager.h"
 #include <iostream>
+
 using namespace std;
+
 HWND WindowManager::g_hWnd;
 CONST int WindowManager::ScreenWidth;
 CONST int WindowManager::ScreenHeight;
+
 LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
@@ -25,10 +28,8 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
 	return 0;
 }
 
-
 WindowManager::WindowManager()
 {
-
 	ZeroMemory(&wndClass, sizeof(wndClass));
 	wndClass.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 	wndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
@@ -46,8 +47,6 @@ WindowManager::WindowManager()
 
 WindowManager::~WindowManager()
 {}
-
-
 
 void WindowManager::CleanUpWindow()
 {
@@ -70,7 +69,6 @@ bool WindowManager::WindowIsRunning()
 		//	Send message to your window procedure
 		DispatchMessage(&msg);
 	}
-
 
 	return true;
 }

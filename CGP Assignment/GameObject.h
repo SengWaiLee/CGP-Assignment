@@ -3,6 +3,7 @@
 #include <d3dx9.h>
 #include <string>
 #include "DirectXManager.h"
+
 class GameObject
 {
 public:

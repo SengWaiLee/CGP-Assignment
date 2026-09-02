@@ -2,11 +2,12 @@
 AudioManager* audio = new AudioManager;
 void Level1::InitialiseGame()
 {
+	AudioManager::PlayLevel1Sound();
+	
 	friction = 0.9f;
 	gravity = 9.8f;
 	GameObject* bg = new GameObject((LPSTR)"Assets/level1bg.png", 1, 1, 1920, 1080, 0, 1, 1, 0, 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(bg);
-
 
 	GameObject* platform5 = new GameObject((LPSTR)"Assets/platform.png", 1, 1, 2048, 925, 0, 1, 1, 0, 0, D3DXVECTOR2(1500.0f, 525.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.03f, 0.01f));
 	gameObject.push_back(platform5);
@@ -43,7 +44,6 @@ void Level1::Update()
 
 	for (int i = 0; i < frameTimer->framesToUpdate(); i++)
 	{
-
 		destination->currentFrame++;
 		//update militia animation rectangle
 		militia->animRect.top = militia->direction * militia->spriteHeight;
@@ -74,8 +74,6 @@ void Level1::Update()
 				militia->pos.y -= (militia->colRect.bottom - platform->colRect.top);
 				canJump = true;
 			}
-
-
 		}
 
 		//collision detection between player and the platform
@@ -90,8 +88,6 @@ void Level1::Update()
 				militia->pos.y -= (militia->colRect.bottom - platform2->colRect.top);
 				canJump = true;
 			}
-
-
 		}
 
 		//collision detection between player and the platform
@@ -106,7 +102,6 @@ void Level1::Update()
 				militia->pos.y -= (militia->colRect.bottom - platform3->colRect.top);
 				canJump = true;
 			}
-
 		}
 
 		//collision detection between player and the platform
@@ -121,8 +116,6 @@ void Level1::Update()
 				militia->pos.y -= (militia->colRect.bottom - platform4->colRect.top);
 				canJump = true;
 			}
-
-
 		}
 
 		//collision detection between player and the platform
@@ -137,13 +130,13 @@ void Level1::Update()
 				militia->pos.y -= (militia->colRect.bottom - platform5->colRect.top);
 				canJump = true;
 			}
-
-
 		}
 
 		//collision detection between player and the destination
 		if (CollisionDetection(militia->colRect, destination->colRect)) {
 			cout << "won" << endl;
+			AudioManager::StopBackgroundMusic();
+
 			Game::gameStack.pop_back();
 			Game::gameStack.push_back(new GameOver());
 			Game::gameStack.back()->InitialiseGame();

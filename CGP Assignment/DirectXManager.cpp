@@ -1,13 +1,15 @@
 #include "DirectXManager.h"
 #include <iostream>
+
 using namespace std;
+
 IDirect3DDevice9* DirectXManager::myVirtualGPU;
 LPD3DXSPRITE  DirectXManager::spriteBrush = NULL;
 LPD3DXFONT  DirectXManager::font = NULL;
 LPD3DXLINE  DirectXManager::line = NULL;
+
 DirectXManager::DirectXManager()
 {
-
 	ZeroMemory(&d3dPP, sizeof(d3dPP));
 
 	d3dPP.Windowed = false;

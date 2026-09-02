@@ -1,6 +1,9 @@
 #include "AudioManager.h"
-FMOD::System* AudioManager::system; //virtual sound card
+
+FMOD::System* AudioManager::system; // Virtual sound card
 FMOD::Sound* AudioManager::mainMenuSound;
+FMOD::Sound* AudioManager::level1Sound;
+FMOD::Sound* AudioManager::level2Sound;
 FMOD::Sound* AudioManager::jumpSound;
 FMOD::Sound* AudioManager::landSound;
 FMOD::Sound* AudioManager::UISelectSound;
@@ -9,6 +12,7 @@ FMOD::Channel* AudioManager::channel;
 FMOD::Channel* AudioManager::bgmChannel;
 FMOD_RESULT AudioManager::result;
 float AudioManager::SOUND_VOLUME = 1.0f;
+bool AudioManager::isMuted = false;
 
 void AudioManager::InitialiseAudio()
 {
@@ -18,10 +22,19 @@ void AudioManager::InitialiseAudio()
 
 void AudioManager::PlayMainMenuSound()
 {
-	StopMainMenuSound();
+	StopBackgroundMusic();
 	
 	result = system->playSound(mainMenuSound, 0, false, &bgmChannel);
-	bgmChannel->setVolume(SOUND_VOLUME);
+
+	if (isMuted)
+	{
+		bgmChannel->setVolume(0.0f);
+	}
+	else
+	{
+		bgmChannel->setVolume(SOUND_VOLUME);
+	}
+
 	bgmChannel->setPan(0.0f);
 	bgmChannel->setFrequency(44100);
 	bgmChannel->setPaused(false);
@@ -43,7 +56,7 @@ void AudioManager::PlayLandSound()
 	channel->setPaused(false);
 }
 
-void AudioManager::PlayVictorySounds()
+void AudioManager::PlayVictorySound()
 {
 	result = system->playSound(victory, 0, true, &channel);
 	channel->setVolume(0.8f);
@@ -51,7 +64,7 @@ void AudioManager::PlayVictorySounds()
 	channel->setPaused(false);
 }
 
-void AudioManager::PlaySelectSounds()
+void AudioManager::PlaySelectSound()
 {
 	result = system->playSound(UISelectSound, 0, true, &channel);
 	channel->setVolume(0.8f);
@@ -62,48 +75,43 @@ void AudioManager::PlaySelectSounds()
 void AudioManager::PlaySoundTrack()
 {}
 
-void AudioManager::PauseSounds() {
+void AudioManager::PauseSound() {
 	channel->setPaused(true);
 }
 
-
-void AudioManager::LoadSounds()
-{
-	result = system->createSound("Assets/Napple Tale_ Arsia in Daydream - Snowball (Dreamcast).mp3", FMOD_DEFAULT, 0, &mainMenuSound);
-	result = mainMenuSound->setMode(FMOD_LOOP_NORMAL);
-	result = system->createSound("Assets/jump.mp3", FMOD_DEFAULT, 0, &jumpSound);
-	result = jumpSound->setMode(FMOD_LOOP_OFF);
-	result = system->createSound("Assets/land.ogg", FMOD_DEFAULT, 0, &landSound);
-	result = landSound->setMode(FMOD_LOOP_OFF);
-	result = system->createSound("Assets/victory.wav", FMOD_DEFAULT, 0, &victory);
-	result = victory->setMode(FMOD_LOOP_OFF);
-	result = system->createSound("Assets/UIselect.wav", FMOD_DEFAULT, 0, &UISelectSound);
-	result = UISelectSound->setMode(FMOD_LOOP_OFF);
-}
 
 void AudioManager::updateSound()
 {
 	system->update();
 }
 
-AudioManager::AudioManager()
-{}
-
-AudioManager::~AudioManager()
-{}
-
-void AudioManager::VolumeControl(float volume) {
+void AudioManager::VolumeControl(float volume)
+{
 	if (volume >= 1.0f)
 	{
 		volume = 1.0f;
 	}
-	else if (volume <= 0.0f) {
+	else if (volume <= 0.0f)
+	{
 		volume = 0.0f;
 	}
-	bgmChannel->setVolume(volume);
+
+	SOUND_VOLUME = volume;
+
+	if (bgmChannel != nullptr)
+	{
+		if (isMuted)
+		{
+			bgmChannel->setVolume(0.0f);
+		}
+		else
+		{
+			bgmChannel->setVolume(SOUND_VOLUME);
+		}
+	}
 }
 
-void AudioManager::StopMainMenuSound()
+void AudioManager::StopBackgroundMusic()
 {
 	if (bgmChannel != nullptr)
 	{
@@ -120,3 +128,65 @@ void AudioManager::StopVictorySound()
 		channel = nullptr;
 	}
 }
+
+void AudioManager::PlayLevel1Sound()
+{
+	StopBackgroundMusic();
+
+	result = system->playSound(level1Sound, 0, false, &bgmChannel);
+
+	if (isMuted)
+	{
+		bgmChannel->setVolume(0.0f);
+	}
+	else
+	{
+		bgmChannel->setVolume(SOUND_VOLUME);
+	}
+
+	bgmChannel->setPan(0.0f);
+	bgmChannel->setPaused(false);
+}
+
+void AudioManager::PlayLevel2Sound()
+{
+	StopBackgroundMusic();
+
+	result = system->playSound(level2Sound, 0, false, &bgmChannel);
+
+	if (isMuted)
+	{
+		bgmChannel->setVolume(0.0f);
+	}
+	else
+	{
+		bgmChannel->setVolume(SOUND_VOLUME);
+	}
+
+	bgmChannel->setPan(0.0f);
+	bgmChannel->setPaused(false);
+}
+
+void AudioManager::LoadSound()
+{
+	result = system->createSound("Assets/mainmenubgm.mp3", FMOD_DEFAULT, 0, &mainMenuSound);
+	result = mainMenuSound->setMode(FMOD_LOOP_NORMAL);
+	result = system->createSound("Assets/level1bgm.mp3", FMOD_DEFAULT, 0, &level1Sound);
+	result = level1Sound->setMode(FMOD_LOOP_NORMAL);
+	result = system->createSound("Assets/level2bgm.mp3", FMOD_DEFAULT, 0, &level2Sound);
+	result = level2Sound->setMode(FMOD_LOOP_NORMAL);
+	result = system->createSound("Assets/jump.mp3", FMOD_DEFAULT, 0, &jumpSound);
+	result = jumpSound->setMode(FMOD_LOOP_OFF);
+	result = system->createSound("Assets/land.ogg", FMOD_DEFAULT, 0, &landSound);
+	result = landSound->setMode(FMOD_LOOP_OFF);
+	result = system->createSound("Assets/victory.wav", FMOD_DEFAULT, 0, &victory);
+	result = victory->setMode(FMOD_LOOP_OFF);
+	result = system->createSound("Assets/UIselect.wav", FMOD_DEFAULT, 0, &UISelectSound);
+	result = UISelectSound->setMode(FMOD_LOOP_OFF);
+}
+
+AudioManager::AudioManager()
+{}
+
+AudioManager::~AudioManager()
+{}

@@ -1,8 +1,11 @@
 #include "DirectInputManager.h"
 #include <iostream>
+
 using namespace std;
+
 BYTE DirectInputManager::diKeys[256];
 DIMOUSESTATE DirectInputManager::mouseState;
+
 DirectInputManager::DirectInputManager()
 {
 	//	Create the Direct Input object.
@@ -46,9 +49,7 @@ void DirectInputManager::GettingInput()
 	dInputKeyboardDevice->GetDeviceState(256, diKeys);
 	dInputMouseDevice->GetDeviceState(sizeof(mouseState), (LPVOID)&mouseState);
 	//Acquire Device
-
 }
-
 
 void DirectInputManager::CleanUpDirectInput()
 {

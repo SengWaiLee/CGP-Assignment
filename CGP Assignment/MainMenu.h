@@ -7,6 +7,7 @@
 #include "Level1.h"
 #include "Level2.h"
 #include <Windows.h>
+
 class MainMenu :
     public Game
 {
@@ -19,7 +20,6 @@ public:
     GameObject* addButton;
     GameObject* unmuteButton;
     GameObject* mouseCursor;
-    bool isMuted = false;
     int volume = 100;
     void InitialiseGame();
     void Update();

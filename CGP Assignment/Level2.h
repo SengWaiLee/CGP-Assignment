@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "DirectInputManager.h"
 #include "MainMenu.h"
+
 class Level2 :
     public Game
 {

@@ -2,8 +2,10 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 #include "WindowManager.h"
+
 #ifndef DIRECTXMANAGER_H
 #define DIRECTXMANAGER_H
+
 class DirectXManager
 {
 public:
