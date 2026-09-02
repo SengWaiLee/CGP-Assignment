@@ -154,6 +154,7 @@
     <ClCompile Include="Level1.cpp" />
     <ClCompile Include="Level2.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="ParallaxLayer.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="WindowManager.cpp" />
   </ItemGroup>
@@ -168,6 +169,7 @@
     <ClInclude Include="Level1.h" />
     <ClInclude Include="Level2.h" />
     <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="ParallaxLayer.h" />
     <ClInclude Include="WindowManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

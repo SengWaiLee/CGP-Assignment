@@ -41,7 +41,7 @@ void Game::CleanUp()
 Game::Game()
 {
 
-	frameTimer->init(30);
+	frameTimer->init(120);
 }
 
 bool Game::CollisionDetection(RECT A, RECT B) {
