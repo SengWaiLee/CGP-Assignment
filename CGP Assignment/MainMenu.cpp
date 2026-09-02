@@ -13,7 +13,7 @@ void MainMenu::InitialiseGame()
 	}
 	else
 	{
-		volume = (int)(AudioManager::SOUND_VOLUME * 0);
+		volume = (int)(AudioManager::SOUND_VOLUME * 100);
 	}
 
 	RECT MainBGRect;
