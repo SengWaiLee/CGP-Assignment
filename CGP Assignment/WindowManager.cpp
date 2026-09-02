@@ -35,13 +35,13 @@ WindowManager::WindowManager()
 	wndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wndClass.hInstance = GetModuleHandle(NULL);	//	GetModuleHandle(NULL);
 	wndClass.lpfnWndProc = WindowProcedure;
-	wndClass.lpszClassName = "My Window";
+	wndClass.lpszClassName = "Ground to Galaxy";
 	wndClass.style = CS_HREDRAW | CS_VREDRAW;
 
 	//Register Window
 	RegisterClass(&wndClass);
 
-	g_hWnd = CreateWindowEx(0, wndClass.lpszClassName, "Game Windows", WS_OVERLAPPEDWINDOW, 0, 0, ScreenWidth, ScreenHeight, NULL, NULL, GetModuleHandle(NULL), NULL);
+	g_hWnd = CreateWindowEx(0, wndClass.lpszClassName, "Ground to Galaxy", WS_OVERLAPPEDWINDOW, 0, 0, ScreenWidth, ScreenHeight, NULL, NULL, GetModuleHandle(NULL), NULL);
 	ShowWindow(g_hWnd, 1);
 }
 
