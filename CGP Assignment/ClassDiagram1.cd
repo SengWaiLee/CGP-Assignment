@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="WindowManager">
+    <Position X="10.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAEAAQACAAAAAAIAAAABAgAAAAAAABAAAAAA=</HashCode>
+      <FileName>WindowManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AudioManager">
+    <Position X="9" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAACAAgAwACIASEhAgABQwIAAJQIKICAIEYAASDIAA=</HashCode>
+      <FileName>AudioManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DirectInputManager">
+    <Position X="10.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAABAgEgAGAAAAAEEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DirectInputManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DirectXManager">
+    <Position X="10.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAMAAAAABACAAAAAAAAAAAAAAAAAQDQAAAAAAAAAAgA=</HashCode>
+      <FileName>DirectXManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FrameTimer">
+    <Position X="7" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEQAAAAQAAAAAAAgAgAAAAAAIAAAAIAAAAAAA=</HashCode>
+      <FileName>FrameTimer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Game">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAwAAAAAABAAAAAAAAAAAAAEAAiAAAEAAhIAAEAAAAA=</HashCode>
+      <FileName>Game.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameObject">
+    <Position X="12.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AICAEAQAgIAAoCABECCEAYEiAAAAA0AAAAAAAAI8AAA=</HashCode>
+      <FileName>GameObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameOver">
+    <Position X="7.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAAAAAAMAAAAAAIAAAAARAAEAEAAJMQAEAACIA=</HashCode>
+      <FileName>GameOver.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Level1">
+    <Position X="0.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQAAAgAAAAAAAIgAAAAAAAAAwAACAABAAMABEgAAAA=</HashCode>
+      <FileName>Level1.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Level2">
+    <Position X="3" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAIAAAAAAAAAkQAAAAABABIAAEAAAAA=</HashCode>
+      <FileName>Level2.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MainMenu">
+    <Position X="5.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQAAAAAAAAMAAAAwAIAAAQABAAECEAgJMAIUICCAA=</HashCode>
+      <FileName>MainMenu.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ParallaxLayer">
+    <Position X="12.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAQAAAAIAIAAAQEAAIwAAABAAAGAAAAA=</HashCode>
+      <FileName>ParallaxLayer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
