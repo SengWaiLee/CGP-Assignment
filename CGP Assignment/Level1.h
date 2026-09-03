@@ -20,6 +20,8 @@ public:
     GameObject* militia;
     bool canJump;
     bool playLandSound = false;
+    bool isWalking = false;
+    int previousFrame = 0;
     void InitialiseGame();
     void Update();
     void CleanUp();

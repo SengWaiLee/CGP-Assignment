@@ -144,6 +144,9 @@ void Level1::Update()
 			}
 		}
 
+		//reset walking state
+		isWalking = false;
+
 		//checking input for space bar
 		if (DirectInputManager::diKeys[DIK_SPACE] & 0x80) {
 			if (canJump == true) {
@@ -161,6 +164,11 @@ void Level1::Update()
 			militia->currentFrame++;
 			militia->accel.x = militia->speed / militia->mass;
 			militia->vel += militia->accel;
+
+			//checking walking
+			if (canJump) {
+				isWalking = true;
+			}
 		}
 
 		//checking input for a key
@@ -169,6 +177,22 @@ void Level1::Update()
 			militia->currentFrame++;
 			militia->accel.x = militia->speed / militia->mass;
 			militia->vel -= militia->accel;
+
+			//checking walking
+			if (canJump) {
+				isWalking = true;
+			}
+		}
+
+		//footstep trigger per frame
+		int currentAnimationFrame = militia->currentFrame % militia->maxFrame;
+
+		if (isWalking && currentAnimationFrame != previousFrame) {
+			if (currentAnimationFrame == 1 || currentAnimationFrame == 3) {
+				        cout << "FOOTSTEP TRIGGERED - Frame: "
+             << currentAnimationFrame << endl;
+				AudioManager::PlayFootstepSound();
+			}
 		}
 
 		//updating position

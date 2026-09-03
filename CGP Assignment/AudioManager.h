@@ -10,6 +10,7 @@ public:
 	static FMOD::Sound* level2Sound;
 	static FMOD::Sound* jumpSound;
 	static FMOD::Sound* landSound;
+	static FMOD::Sound* footstepSound;
 	static FMOD::Sound* UISelectSound;
 	static FMOD::Sound* victory;
 	static FMOD::Channel* channel; //to manipulate the sound
@@ -24,6 +25,7 @@ public:
 	static void PlayJumpSound();
 	static void PauseSound();
 	static void PlayLandSound();
+	static void PlayFootstepSound();
 	static void PlayVictorySound();
 	static void PlaySelectSound();
 	static void StopBackgroundMusic();

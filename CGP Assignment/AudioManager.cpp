@@ -1,4 +1,6 @@
 #include "AudioManager.h"
+#include <iostream>
+using namespace std;
 
 FMOD::System* AudioManager::system; // Virtual sound card
 FMOD::Sound* AudioManager::mainMenuSound;
@@ -6,6 +8,7 @@ FMOD::Sound* AudioManager::level1Sound;
 FMOD::Sound* AudioManager::level2Sound;
 FMOD::Sound* AudioManager::jumpSound;
 FMOD::Sound* AudioManager::landSound;
+FMOD::Sound* AudioManager::footstepSound;
 FMOD::Sound* AudioManager::UISelectSound;
 FMOD::Sound* AudioManager::victory;
 FMOD::Channel* AudioManager::channel;
@@ -54,6 +57,32 @@ void AudioManager::PlayLandSound()
 	channel->setVolume(1.0f);
 	channel->setPan(0.0f);
 	channel->setPaused(false);
+}
+
+void AudioManager::PlayFootstepSound()
+{
+	bool isPlaying = false;
+
+	if (channel != nullptr)
+	{
+		channel->isPlaying(&isPlaying);
+	}
+
+	if (isPlaying)
+	{
+		return;
+	}
+
+	result = system->playSound(footstepSound, 0, false, &channel);
+
+	if (result != FMOD_OK)
+	{
+		cout << "Footstep error: " << result << endl;
+		return;
+	}
+
+	channel->setVolume(0.5f);
+	channel->setPan(0.0f);
 }
 
 void AudioManager::PlayVictorySound()
@@ -179,6 +208,8 @@ void AudioManager::LoadSound()
 	result = jumpSound->setMode(FMOD_LOOP_OFF);
 	result = system->createSound("Assets/land.ogg", FMOD_DEFAULT, 0, &landSound);
 	result = landSound->setMode(FMOD_LOOP_OFF);
+	result = system->createSound("Assets/footsteps.wav", FMOD_DEFAULT, 0, &footstepSound);
+	result = footstepSound->setMode(FMOD_LOOP_OFF);
 	result = system->createSound("Assets/victory.wav", FMOD_DEFAULT, 0, &victory);
 	result = victory->setMode(FMOD_LOOP_OFF);
 	result = system->createSound("Assets/UIselect.wav", FMOD_DEFAULT, 0, &UISelectSound);
