@@ -25,8 +25,16 @@ void Game::Render()
 	}
 
 	DirectXManager::spriteBrush->End();
+	//render text after sprites
+	RenderText();
+
 	DirectXManager::myVirtualGPU->EndScene();
 	DirectXManager::myVirtualGPU->Present(NULL, NULL, NULL, NULL);
+}
+
+void Game::RenderText()
+{
+
 }
 
 void Game::CleanUp()

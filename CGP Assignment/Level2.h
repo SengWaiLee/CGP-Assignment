@@ -13,6 +13,7 @@ public:
     GameObject* spaceship2;
     void InitialiseGame();
     void Update();
+    void RenderText();
     void CleanUp();
     Level2();
 };

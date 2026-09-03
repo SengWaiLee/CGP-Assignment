@@ -25,6 +25,7 @@ public:
     int previousFrame = 0;
     void InitialiseGame();
     void Update();
+    void RenderText();
     void CleanUp();
     float gravity;
     float friction;

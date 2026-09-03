@@ -151,7 +151,7 @@ void Level1::Update()
 		}
 
 		// Collision detection between player and the destination
-		if (CollisionDetection(militia->colRect, destination->colRect)) 
+		if (CollisionDetection(militia->colRect, destination->colRect))
 		{
 			cout << "won" << endl;
 
@@ -169,7 +169,9 @@ void Level1::Update()
 			Game::gameStack.back()->InitialiseGame();
 
 			return;
+			//this->CleanUp();
 		}
+
 
 		// Reset walking state
 		isWalking = false;
@@ -285,6 +287,74 @@ void Level1::Update()
 			return;
 		}
 	}
+}
+
+void Level1::RenderText()
+{
+	RECT levelRect;
+
+	levelRect.left = 0;
+	levelRect.top = 50;
+	levelRect.right = WindowManager::ScreenWidth;
+	levelRect.bottom = 120;
+
+	DirectXManager::font->DrawText(
+		NULL,
+		"LEVEL 1",
+		-1,
+		&levelRect,
+		DT_CENTER,
+		D3DCOLOR_XRGB(255, 255, 255)
+	);
+
+	RECT objectiveRect;
+
+	objectiveRect.left = 50;
+	objectiveRect.top = 50;
+	objectiveRect.right = 1000;
+	objectiveRect.bottom = 120;
+
+	DirectXManager::font->DrawText(
+		NULL,
+		"Objective: Reach the flag",
+		-1,
+		&objectiveRect,
+		DT_LEFT,
+		D3DCOLOR_XRGB(255, 255, 255)
+	);
+
+	RECT movementRect;
+
+	movementRect.left = 50;
+	movementRect.top = 120;
+	movementRect.right = 600;
+	movementRect.bottom = 180;
+
+	DirectXManager::font->DrawText(
+		NULL,
+		"A / D: Movement",
+		-1,
+		&movementRect,
+		DT_LEFT,
+		D3DCOLOR_XRGB(255, 255, 255)
+	);
+
+	RECT jumpRect;
+
+	jumpRect.left = 50;
+	jumpRect.top = 180;
+	jumpRect.right = 600;
+	jumpRect.bottom = 240;
+
+	DirectXManager::font->DrawText(
+		NULL,
+		"SPACE: Jump",
+		-1,
+		&jumpRect,
+		DT_LEFT,
+		D3DCOLOR_XRGB(255, 255, 255)
+	);
+
 }
 
 void Level1::CleanUp()

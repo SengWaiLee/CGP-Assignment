@@ -16,6 +16,7 @@ public:
 	virtual void InitialiseGame();
 	virtual void Update();
 	virtual void Render();
+	virtual void RenderText();
 	virtual void CleanUp();
 	virtual ~Game();
 	Game();

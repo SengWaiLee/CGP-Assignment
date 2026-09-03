@@ -234,6 +234,25 @@ void Level2::Update()
 	}
 }
 
+void Level2::RenderText()
+{
+	RECT levelRect;
+
+	levelRect.left = 0;
+	levelRect.top = 50;
+	levelRect.right = WindowManager::ScreenWidth;
+	levelRect.bottom = 120;
+
+	DirectXManager::font->DrawText(
+		NULL,
+		"LEVEL 2",
+		-1,
+		&levelRect,
+		DT_CENTER,
+		D3DCOLOR_XRGB(255, 255, 255)
+	);
+}
+
 void Level2::CleanUp()
 {
 	for (GameObject* obj : gameObject)
