@@ -14,5 +14,6 @@ public:
     void InitialiseGame();
     void Update();
     void CleanUp();
+    void Render() override;
     Level2();
 };
