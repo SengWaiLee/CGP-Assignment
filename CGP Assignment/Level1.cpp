@@ -1,4 +1,5 @@
 #include "Level1.h"
+#include <iostream>
 
 void Level1::InitialiseGame()
 {
@@ -6,6 +7,7 @@ void Level1::InitialiseGame()
 	
 	friction = 0.9f;
 	gravity = 9.8f;
+
 	bg = new GameObject((LPSTR)"Assets/level1bg.png", 1, 1, 1920, 1080, 0, 1, 1, 0, 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(bg);
 
@@ -27,7 +29,7 @@ void Level1::InitialiseGame()
 	destination = new GameObject((LPSTR)"Assets/flag.png", 1, 5, 300, 60, 0, 5, 0, 0, 0, D3DXVECTOR2(950.0f, 290.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(destination);
 
-	militia = new GameObject((LPSTR)"Assets/militia.png", 4, 4, 128, 192, 2, 4, 0, 25, 10, D3DXVECTOR2(0.0f, 100.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 600, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(2.0f, 2.0f));
+	militia = new GameObject((LPSTR)"Assets/militia.png", 4, 4, 128, 192, 2, 4, 0, 25, 10, D3DXVECTOR2(0.0f, 100.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 650, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(2.0f, 2.0f));
 	gameObject.push_back(militia);
 }
 
@@ -44,6 +46,7 @@ void Level1::Update()
 	for (int i = 0; i < frameTimer->framesToUpdate(); i++)
 	{
 		destination->currentFrame++;
+
 		// Update militia animation rectangle
 		militia->animRect.top = militia->direction * militia->spriteHeight;
 		militia->animRect.bottom = militia->animRect.top + militia->spriteHeight;
@@ -60,155 +63,53 @@ void Level1::Update()
 		militia->vel.x *= friction;
 		militia->vel.y += gravity;
 
-		// Collision detection between player and the platform
-		if (CollisionDetection(militia->colRect, platform->colRect) && militia->vel.y >= 0)
-		{
-			if (playLandSound)
-			{
-				AudioManager::PlayLandSound();
-				playLandSound = false;
-			}
-
-			militia->vel.y = 0;
-
-			float overlap = militia->colRect.bottom - platform->colRect.top;
-
-			militia->pos.y -= overlap;
-
-			canJump = true;
-		}
-
-		// Collision detection between player and the platform2
-		if (CollisionDetection(militia->colRect, platform2->colRect) && militia->vel.y >= 0)
-		{
-			if (playLandSound)
-			{
-				AudioManager::PlayLandSound();
-				playLandSound = false;
-			}
-
-			militia->vel.y = 0;
-
-			float overlap = militia->colRect.bottom - platform2->colRect.top;
-
-			militia->pos.y -= overlap;
-
-			canJump = true;
-		}
-
-		// Collision detection between player and the platform3
-		if (CollisionDetection(militia->colRect, platform3->colRect) && militia->vel.y >= 0)
-		{
-			if (playLandSound)
-			{
-				AudioManager::PlayLandSound();
-				playLandSound = false;
-			}
-
-			militia->vel.y = 0;
-
-			float overlap = militia->colRect.bottom - platform3->colRect.top;
-
-			militia->pos.y -= overlap;
-
-			canJump = true;
-		}
-
-		// Collision detection between player and the platform4
-		if (CollisionDetection(militia->colRect, platform4->colRect) && militia->vel.y >= 0)
-		{
-			if (playLandSound)
-			{
-				AudioManager::PlayLandSound();
-				playLandSound = false;
-			}
-
-			militia->vel.y = 0;
-
-			float overlap =	militia->colRect.bottom - platform4->colRect.top;
-
-			militia->pos.y -= overlap;
-
-			canJump = true;
-		}
-
-		// Collision detection between player and the platform5
-		if (CollisionDetection(militia->colRect, platform5->colRect) && militia->vel.y >= 0)
-		{
-			if (playLandSound)
-			{
-				AudioManager::PlayLandSound();
-				playLandSound = false;
-			}
-
-			militia->vel.y = 0;
-
-			float overlap = militia->colRect.bottom - platform5->colRect.top;
-
-			militia->pos.y -= overlap;
-
-			canJump = true;
-		}
-
-		// Collision detection between player and the destination
-		if (CollisionDetection(militia->colRect, destination->colRect))
-		{
-			cout << "won" << endl;
-
-			AudioManager::StopBackgroundMusic();
-
-			Game* currentGame = Game::gameStack.back();
-
-			currentGame->CleanUp();
-			Game::gameStack.pop_back();
-
-			delete currentGame;
-			currentGame = nullptr;
-
-			Game::gameStack.push_back(new GameOver());
-			Game::gameStack.back()->InitialiseGame();
-
-			return;
-			//this->CleanUp();
-		}
-
-
 		// Reset walking state
 		isWalking = false;
 
-		// Checking input for space bar
-		if (DirectInputManager::diKeys[DIK_SPACE] & 0x80) {
-			if (canJump == true) {
+		// Checking input for space bar (Jump)
+		if (DirectInputManager::diKeys[DIK_SPACE] & 0x80) 
+		{
+			if (canJump == true) 
+			{
 				AudioManager::PlayJumpSound();
+
 				militia->jumpAccel.y = militia->jumpForce / militia->mass;
+
 				militia->vel -= militia->jumpAccel;
+
 				canJump = false;
 				playLandSound = true;
 			}
 		}
 
-		// Checking input for d key
-		if (DirectInputManager::diKeys[DIK_D] & 0x80) {
+		// Checking input for D key (Move right)
+		if (DirectInputManager::diKeys[DIK_D] & 0x80) 
+		{
 			militia->direction = 2;
 			militia->currentFrame++;
+
 			militia->accel.x = militia->speed / militia->mass;
+
 			militia->vel += militia->accel;
 
-			//checking walking
-			if (canJump) {
+			// Check walking
+			if (canJump) 
+			{
 				isWalking = true;
 			}
 		}
 
-		// Checking input for a key
+		// Check input for A key (Move left)
 		if (DirectInputManager::diKeys[DIK_A] & 0x80) {
 			militia->direction = 1;
 			militia->currentFrame++;
+
 			militia->accel.x = militia->speed / militia->mass;
 			militia->vel -= militia->accel;
 
-			// Checking walking
-			if (canJump) {
+			// Check walking
+			if (canJump) 
+			{
 				isWalking = true;
 			}
 		}
@@ -216,18 +117,125 @@ void Level1::Update()
 		// Footstep trigger per frame
 		int currentAnimationFrame = militia->currentFrame % militia->maxFrame;
 
-		if (isWalking && currentAnimationFrame != previousFrame) {
-			if (currentAnimationFrame == 1 || currentAnimationFrame == 3) {
-				        cout << "FOOTSTEP TRIGGERED - Frame: "
-             << currentAnimationFrame << endl;
+		if (isWalking && currentAnimationFrame != previousFrame) 
+		{
+			if (currentAnimationFrame == 1 || currentAnimationFrame == 3) 
+			{
+				cout << "FOOTSTEP TRIGGERED - Frame: " << currentAnimationFrame << endl;
 				AudioManager::PlayFootstepSound();
 			}
 		}
 
 		previousFrame = currentAnimationFrame;
 
+		// Update collision rectangle before updating position
+		float previousBottom = militia->colRect.bottom;
+
 		// Update position
 		militia->pos += militia->vel;
+
+		// Update collision rectangle after updating position
+		militia->colRect.top = militia->pos.y;
+		militia->colRect.bottom = militia->colRect.top + (float)militia->spriteHeight * militia->scaling.y;
+		militia->colRect.left = militia->pos.x;
+		militia->colRect.right = militia->colRect.left + (float)militia->spriteWidth * militia->scaling.x;
+
+		// Collision detection between player and the platform
+		if (militia->vel.y >= 0 && previousBottom <= platform->colRect.top && militia->colRect.bottom >= platform->colRect.top && militia->colRect.right > platform->colRect.left && militia->colRect.left < platform->colRect.right)
+		{
+			if (playLandSound)
+			{
+				AudioManager::PlayLandSound();
+				playLandSound = false;
+			}
+
+			// Put Militia exactly on top of platform
+			militia->pos.y = platform->colRect.top - (militia->spriteHeight * militia->scaling.y);
+
+			militia->vel.y = 0;
+			canJump = true;
+
+			// Update vertical collision rectangle
+			militia->colRect.top = militia->pos.y;
+
+			militia->colRect.bottom = militia->colRect.top + (float)militia->spriteHeight * militia->scaling.y;
+		}
+
+		// Collision detection between player and the platform2
+		if (militia->vel.y >= 0 && previousBottom <= platform2->colRect.top && militia->colRect.bottom >= platform2->colRect.top && militia->colRect.right > platform2->colRect.left && militia->colRect.left < platform2->colRect.right)
+		{
+			if (playLandSound)
+			{
+				AudioManager::PlayLandSound();
+				playLandSound = false;
+			}
+
+			militia->pos.y = platform2->colRect.top - (militia->spriteHeight * militia->scaling.y);
+
+			militia->vel.y = 0;
+			canJump = true;
+
+			militia->colRect.top = militia->pos.y;
+
+			militia->colRect.bottom = militia->colRect.top + (float)militia->spriteHeight * militia->scaling.y;
+		}
+
+		// Collision detection between player and the platform3
+		if (militia->vel.y >= 0 && previousBottom <= platform3->colRect.top && militia->colRect.bottom >= platform3->colRect.top && militia->colRect.right > platform3->colRect.left && militia->colRect.left < platform3->colRect.right)
+		{
+			if (playLandSound)
+			{
+				AudioManager::PlayLandSound();
+				playLandSound = false;
+			}
+
+			militia->pos.y = platform3->colRect.top - (militia->spriteHeight * militia->scaling.y);
+
+			militia->vel.y = 0;
+			canJump = true;
+
+			militia->colRect.top = militia->pos.y;
+
+			militia->colRect.bottom = militia->colRect.top + (float)militia->spriteHeight * militia->scaling.y;
+		}
+
+		// Collision detection between player and the platform4
+		if (militia->vel.y >= 0 && previousBottom <= platform4->colRect.top && militia->colRect.bottom >= platform4->colRect.top && militia->colRect.right > platform4->colRect.left && militia->colRect.left < platform4->colRect.right)
+		{
+			if (playLandSound)
+			{
+				AudioManager::PlayLandSound();
+				playLandSound = false;
+			}
+
+			militia->pos.y = platform4->colRect.top - (militia->spriteHeight * militia->scaling.y);
+
+			militia->vel.y = 0;
+			canJump = true;
+
+			militia->colRect.top = militia->pos.y;
+
+			militia->colRect.bottom = militia->colRect.top + (float)militia->spriteHeight * militia->scaling.y;
+		}
+
+		// Collision detection between player and the platform5
+		if (militia->vel.y >= 0 && previousBottom <= platform5->colRect.top && militia->colRect.bottom >= platform5->colRect.top && militia->colRect.right > platform5->colRect.left && militia->colRect.left < platform5->colRect.right)
+		{
+			if (playLandSound)
+			{
+				AudioManager::PlayLandSound();
+				playLandSound = false;
+			}
+
+			militia->pos.y = platform5->colRect.top - (militia->spriteHeight * militia->scaling.y);
+
+			militia->vel.y = 0;
+			canJump = true;
+
+			militia->colRect.top = militia->pos.y;
+
+			militia->colRect.bottom = militia->colRect.top + (float)militia->spriteHeight * militia->scaling.y;
+		}
 
 		// Militia boundary 
 		float militiaWidth = militia->spriteWidth * militia->scaling.x;
@@ -272,6 +280,28 @@ void Level1::Update()
 		militia->colRect.left = militia->pos.x;
 		militia->colRect.right = militia->colRect.left + (float)militia->spriteWidth * militia->scaling.x;
 
+		// Collision detection between player and the flag
+		if (CollisionDetection(militia->colRect, destination->colRect))
+		{
+			cout << "won" << endl;
+
+			AudioManager::StopBackgroundMusic();
+
+			Game* currentGame = Game::gameStack.back();
+
+			currentGame->CleanUp();
+
+			Game::gameStack.pop_back();
+
+			delete currentGame;
+			currentGame = nullptr;
+
+			Game::gameStack.push_back(new GameOver());
+
+			Game::gameStack.back()->InitialiseGame();
+
+			return;
+		}
 
 		if (DirectInputManager::diKeys[DIK_B] & 0x80) {
 			Game* currentGame = Game::gameStack.back();
