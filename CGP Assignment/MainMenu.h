@@ -34,18 +34,16 @@ public:
     GameObject* unmuteButton = nullptr;
 
     GameObject* mouseCursor = nullptr;
+    GameObject* previousHoveredButton = nullptr;
 
     int volume = 100;
 
+    bool levelButtonReady = true;
+
     MainMenu();
-
     void InitialiseGame() override;
-
     void Update() override;
-
 	void Render() override;
-
     void CleanUp() override;
-    
 };
 

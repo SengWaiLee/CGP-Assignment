@@ -4,13 +4,13 @@ void Level2::InitialiseGame()
 {
 	AudioManager::PlayLevel2Sound();
 	
-	GameObject* bg = new GameObject((LPSTR)"Assets/level2bg.png", 1, 1, 1920, 1080, 0, 1, 1, 0, 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
+	bg = new GameObject((LPSTR)"Assets/level2bg.png", 1, 1, 1920, 1080, 0, 1, 1, 0, 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(bg);
 
-	GameObject* spaceship1 = new GameObject((LPSTR)"Assets/spaceship.png", 2, 2, 64, 64, 0, 2, 1, 5, 20, D3DXVECTOR2(500.0f, 500.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
+	spaceship1 = new GameObject((LPSTR)"Assets/spaceship.png", 2, 2, 64, 64, 0, 2, 1, 5, 20, D3DXVECTOR2(500.0f, 500.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(spaceship1);
 
-	GameObject* spaceship2 = new GameObject((LPSTR)"Assets/spaceship.png", 2, 2, 64, 64, 1, 2, 1, 5, 5, D3DXVECTOR2(300.0f, 500.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
+	spaceship2 = new GameObject((LPSTR)"Assets/spaceship.png", 2, 2, 64, 64, 1, 2, 1, 5, 5, D3DXVECTOR2(300.0f, 500.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(spaceship2);
 }
 
@@ -64,6 +64,12 @@ void Level2::Update()
 		{
 			spaceship1->vel.x = 0;
 			spaceship1->vel.y = 0;
+
+			spaceship1->accel.x = 0;
+			spaceship1->accel.y = 0;
+
+			spaceship1->engineForce.x = 0;
+			spaceship1->engineForce.y = 0;
 		}
 
 		if (DirectInputManager::diKeys[DIK_UP] & 0x80) 
@@ -87,12 +93,23 @@ void Level2::Update()
 		{
 			spaceship2->vel.x = 0;
 			spaceship2->vel.y = 0;
+
+			spaceship2->accel.x = 0;
+			spaceship2->accel.y = 0;
+
+			spaceship2->engineForce.x = 0;
+			spaceship2->engineForce.y = 0;
 		}
 
 		if (DirectInputManager::diKeys[DIK_B] & 0x80) 
 		{
-			Game::gameStack.back()->CleanUp();
+			Game* currentGame = Game::gameStack.back();
+
+			currentGame->CleanUp();
 			Game::gameStack.pop_back();
+
+			delete currentGame;
+			currentGame = nullptr;
 
 			AudioManager::PlayMainMenuSound();
 
@@ -107,28 +124,51 @@ void Level2::Update()
 			
 			// Find collision normal
 			D3DXVECTOR2 colNormal = center2 - center1;
-			D3DXVec2Normalize(&colNormal, &colNormal);
 
-			// Relative velocity
-			D3DXVECTOR2 relativeVelocity = spaceship1->vel - spaceship2->vel;
+			float distance = D3DXVec2Length(&colNormal);
 
-			// Velocity along collision normal
-			float velocityAlongNormal = D3DXVec2Dot(&relativeVelocity, &colNormal);
-
-			// Only respond if spaceships are moving towards each other
-			if (velocityAlongNormal > 0)
+			if (distance > 0.0f)
 			{
-				float mass1 = spaceship1->mass;
-				float mass2 = spaceship2->mass;
+				D3DXVec2Normalize(&colNormal, &colNormal);
+				
+				float radius1 = spaceship1->spriteWidth / 2.0f;
+				float radius2 = spaceship2->spriteWidth / 2.0f;
 
-				float impulse =	(2.0f * velocityAlongNormal) / (mass1 + mass2);
+				float overlap = (radius1 + radius2) - distance;
 
-				spaceship1->vel -= impulse * mass2 * colNormal;
-				spaceship2->vel += impulse * mass1 * colNormal;
+				if (overlap > 0.0f)
+				{
+					spaceship1->pos -= colNormal * (overlap / 2.0f);
+					spaceship2->pos += colNormal * (overlap / 2.0f);
+				}
+
+				// Relative velocity
+				D3DXVECTOR2 relativeVelocity = spaceship1->vel - spaceship2->vel;
+
+				// Velocity along collision normal
+				float velocityAlongNormal =	D3DXVec2Dot(&relativeVelocity, &colNormal);
+
+				// Only respond if spaceships are moving towards each other
+				if (velocityAlongNormal > 0)
+				{
+					float mass1 = spaceship1->mass;
+					float mass2 = spaceship2->mass;
+
+					float impulse = (2.0f * velocityAlongNormal) / (mass1 + mass2);
+
+					spaceship1->vel -= impulse * mass2 * colNormal;
+					spaceship2->vel += impulse * mass1 * colNormal;
+				}
 			}
 
 			cout << "collided" << endl;
 		}
+
+		spaceship1->vel += spaceship1->accel;
+		spaceship2->vel += spaceship2->accel;
+
+		spaceship1->pos += spaceship1->vel;
+		spaceship2->pos += spaceship2->vel;
 
 		// Spaceship 1 boundary
 		// Top boundary
@@ -191,22 +231,30 @@ void Level2::Update()
 
 			spaceship2->vel.x *= -1;
 		}
-
-		spaceship1->vel += spaceship1->accel;
-		spaceship2->vel += spaceship2->accel;
-
-		spaceship1->pos += spaceship1->vel;
-		spaceship2->pos += spaceship2->vel;
 	}
 }
 
 void Level2::CleanUp()
 {
-	for (GameObject* gameObject : gameObject) {
-		gameObject->texture->Release();
-		gameObject->texture = NULL;
+	for (GameObject* obj : gameObject)
+	{
+		if (obj != nullptr)
+		{
+			if (obj->texture != nullptr)
+			{
+				obj->texture->Release();
+				obj->texture = nullptr;
+			}
+
+			delete obj;
+		}
 	}
+
 	gameObject.clear();
+
+	bg = nullptr;
+	spaceship1 = nullptr;
+	spaceship2 = nullptr;
 }
 
 Level2::Level2()

@@ -15,20 +15,39 @@ int main(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nSho
 	DirectXManager* directX = new DirectXManager();
 	AudioManager* gameAudio = new AudioManager();
 	DirectInputManager* directInput = new DirectInputManager();
+
 	Game::gameStack.push_back(new MainMenu());
+
 	gameAudio->InitialiseAudio();
 	gameAudio->LoadSound();
+
 	Game::gameStack.back()->InitialiseGame();
+
 	while (gameWindowManager->WindowIsRunning())
 	{
 		directInput->GettingInput();
+
 		Game::gameStack.back()->Update();
 		Game::gameStack.back()->Render();
+
+		gameAudio->updateSound();
 	}
-	Game::gameStack.back()->CleanUp();
-	Game::gameStack.clear();
+
+	// Clean up and delete all remaining game states
+	while (!Game::gameStack.empty())
+	{
+		Game* currentGame = Game::gameStack.back();
+
+		currentGame->CleanUp();
+		Game::gameStack.pop_back();
+
+		delete currentGame;
+		currentGame = nullptr;
+	}
+
 	gameWindowManager->CleanUpWindow();
 	directX->CleanUpDirectX();
 	directInput->CleanUpDirectInput();
+
 	return 0;
 }

@@ -10,9 +10,12 @@ FMOD::Sound* AudioManager::jumpSound;
 FMOD::Sound* AudioManager::landSound;
 FMOD::Sound* AudioManager::footstepSound;
 FMOD::Sound* AudioManager::UISelectSound;
+FMOD::Sound* AudioManager::mouseHoverSound;
 FMOD::Sound* AudioManager::victory;
 FMOD::Channel* AudioManager::channel;
+FMOD::Channel* AudioManager::hoverChannel;
 FMOD::Channel* AudioManager::bgmChannel;
+FMOD::Channel* AudioManager::victoryChannel;
 FMOD_RESULT AudioManager::result;
 float AudioManager::SOUND_VOLUME = 1.0f;
 bool AudioManager::isMuted = false;
@@ -46,7 +49,16 @@ void AudioManager::PlayMainMenuSound()
 void AudioManager::PlayJumpSound()
 {
 	result = system->playSound(jumpSound, 0, true, &channel);
-	channel->setVolume(0.8f);
+
+	if (isMuted)
+	{
+		channel->setVolume(0.0f);
+	}
+	else
+	{
+		channel->setVolume(SOUND_VOLUME * 0.8f);
+	}
+
 	channel->setPan(0.0f);
 	channel->setPaused(false);
 }
@@ -54,7 +66,16 @@ void AudioManager::PlayJumpSound()
 void AudioManager::PlayLandSound()
 {
 	result = system->playSound(landSound, 0, true, &channel);
-	channel->setVolume(1.0f);
+
+	if (isMuted)
+	{
+		channel->setVolume(0.0f);
+	}
+	else
+	{
+		channel->setVolume(SOUND_VOLUME * 0.8f);
+	}
+
 	channel->setPan(0.0f);
 	channel->setPaused(false);
 }
@@ -81,22 +102,65 @@ void AudioManager::PlayFootstepSound()
 		return;
 	}
 
-	channel->setVolume(0.5f);
+	if (isMuted)
+	{
+		channel->setVolume(0.0f);
+	}
+	else
+	{
+		channel->setVolume(SOUND_VOLUME * 0.8f);
+	}
+
 	channel->setPan(0.0f);
 }
 
 void AudioManager::PlayVictorySound()
 {
-	result = system->playSound(victory, 0, true, &channel);
-	channel->setVolume(0.8f);
-	channel->setPan(0.0f);
-	channel->setPaused(false);
+	result = system->playSound(victory, 0, true, &victoryChannel);
+
+	if (isMuted)
+	{
+		victoryChannel->setVolume(0.0f);
+	}
+	else
+	{
+		victoryChannel->setVolume(SOUND_VOLUME * 0.8f);
+	}
+
+	victoryChannel->setPan(0.0f);
+	victoryChannel->setPaused(false);
+}
+
+void AudioManager::PlayMouseHoverSound()
+{
+	result = system->playSound(mouseHoverSound, 0, true, &hoverChannel);
+
+	if (isMuted)
+	{
+		hoverChannel->setVolume(0.0f);
+	}
+	else
+	{
+		hoverChannel->setVolume(SOUND_VOLUME);
+	}
+
+	hoverChannel->setPan(0.0f);
+	hoverChannel->setPaused(false);
 }
 
 void AudioManager::PlaySelectSound()
 {
 	result = system->playSound(UISelectSound, 0, true, &channel);
-	channel->setVolume(0.8f);
+
+	if (isMuted)
+	{
+		channel->setVolume(0.0f);
+	}
+	else
+	{
+		channel->setVolume(SOUND_VOLUME * 0.8f);
+	}
+
 	channel->setPan(0.0f);
 	channel->setPaused(false);
 }
@@ -127,6 +191,14 @@ void AudioManager::VolumeControl(float volume)
 
 	SOUND_VOLUME = volume;
 
+	if (hoverChannel != nullptr)
+	{
+		if (isMuted)
+		{
+			hoverChannel->setVolume(0.0f);
+		}
+	}
+
 	if (bgmChannel != nullptr)
 	{
 		if (isMuted)
@@ -136,6 +208,26 @@ void AudioManager::VolumeControl(float volume)
 		else
 		{
 			bgmChannel->setVolume(SOUND_VOLUME);
+		}
+	}
+
+	if (channel != nullptr)
+	{
+		if (isMuted)
+		{
+			channel->setVolume(0.0f);
+		}
+	}
+
+	if (victoryChannel != nullptr)
+	{
+		if (isMuted)
+		{
+			victoryChannel->setVolume(0.0f);
+		}
+		else
+		{
+			victoryChannel->setVolume(SOUND_VOLUME * 0.8f);
 		}
 	}
 }
@@ -151,10 +243,10 @@ void AudioManager::StopBackgroundMusic()
 
 void AudioManager::StopVictorySound()
 {
-	if (channel != nullptr)
+	if (victoryChannel != nullptr)
 	{
-		channel->stop();
-		channel = nullptr;
+		victoryChannel->stop();
+		victoryChannel = nullptr;
 	}
 }
 
@@ -214,6 +306,8 @@ void AudioManager::LoadSound()
 	result = victory->setMode(FMOD_LOOP_OFF);
 	result = system->createSound("Assets/UIselect.wav", FMOD_DEFAULT, 0, &UISelectSound);
 	result = UISelectSound->setMode(FMOD_LOOP_OFF);
+	result = system->createSound("Assets/mousehover.wav", FMOD_DEFAULT, 0, &mouseHoverSound);
+	result = mouseHoverSound->setMode(FMOD_LOOP_OFF);
 }
 
 AudioManager::AudioManager()

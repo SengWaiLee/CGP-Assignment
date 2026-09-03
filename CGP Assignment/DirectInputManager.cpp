@@ -45,7 +45,8 @@ DirectInputManager::DirectInputManager()
 }
 
 void DirectInputManager::GettingInput()
-{	//	Get immediate Keyboard Data.
+{	
+	//	Get immediate Keyboard Data.
 	dInputKeyboardDevice->GetDeviceState(256, diKeys);
 	dInputMouseDevice->GetDeviceState(sizeof(mouseState), (LPVOID)&mouseState);
 	//Acquire Device

@@ -44,6 +44,12 @@ Game::Game()
 	frameTimer->init(120);
 }
 
+Game::~Game()
+{
+	delete frameTimer;
+	frameTimer = nullptr;
+}
+
 bool Game::CollisionDetection(RECT A, RECT B) {
 	//collision for rect
 

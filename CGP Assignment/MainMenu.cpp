@@ -1,5 +1,6 @@
 #include "MainMenu.h"
 #include <iostream>
+
 using namespace std;
 
 void MainMenu::InitialiseGame()
@@ -17,7 +18,6 @@ void MainMenu::InitialiseGame()
 	}
 
 	RECT MainBGRect;
-
 	MainBGRect.left = 40;
 	MainBGRect.top = 460;
 	MainBGRect.right = 1960;
@@ -35,33 +35,33 @@ void MainMenu::InitialiseGame()
 	AsteroidBG2Rect.right = 738;
 	AsteroidBG2Rect.bottom = 665;
 
-	NebulaBG.Initialise("Assets/NebulaBG.png",MainBGRect,0.10f);
-	FarStarsBG.Initialise("Assets/FarStarsBG.png",MainBGRect,0.20f);
-	MiddleStarsBG.Initialise("Assets/MiddleStarsBG.png",MainBGRect,0.35f);
-	PlanetBG.Initialise("Assets/PlanetBG.png",MainBGRect,0.45f);
-	DenseStarsBG.Initialise("Assets/DenseStarsBG.png",MainBGRect,0.60f);
-	NearStarsBG.Initialise("Assets/NearStarsBG.png",MainBGRect,0.80f);
+	NebulaBG.Initialise("Assets/NebulaBG.png", MainBGRect, 0.10f);
+	FarStarsBG.Initialise("Assets/FarStarsBG.png", MainBGRect, 0.20f);
+	MiddleStarsBG.Initialise("Assets/MiddleStarsBG.png",MainBGRect, 0.35f);
+	PlanetBG.Initialise("Assets/PlanetBG.png", MainBGRect, 0.45f);
+	DenseStarsBG.Initialise("Assets/DenseStarsBG.png", MainBGRect, 0.60f);
+	NearStarsBG.Initialise("Assets/NearStarsBG.png", MainBGRect, 0.80f);
 
-	AsteroidBG1.Initialise("Assets/AsteroidBG1.png",AsteroidBG1Rect,1.00f,150.0f);
-	AsteroidBG2.Initialise("Assets/AsteroidBG2.png",AsteroidBG2Rect,1.20f,300.0f);
+	AsteroidBG1.Initialise("Assets/AsteroidBG1.png", AsteroidBG1Rect, 1.00f, 150.0f);
+	AsteroidBG2.Initialise("Assets/AsteroidBG2.png", AsteroidBG2Rect, 1.20f, 300.0f);
 
-	GameObject* gameTitle = new GameObject((LPSTR)"Assets/GameTitle.png", 1, 1, 252, 320, 0, 1, 1, 0, 0, D3DXVECTOR2(850.0f, 80.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
+	gameTitle = new GameObject((LPSTR)"Assets/gametitle.png", 1, 1, 252, 320, 0, 1, 1, 0, 0, D3DXVECTOR2(680.0f, 40.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(2.2f, 1.7f));
 	gameObject.push_back(gameTitle);
-	GameObject* level1Button = new GameObject((LPSTR)"Assets/level1button.png", 1, 1, 256, 65, 0, 1, 1, 0, 0, D3DXVECTOR2(795.0f, 370.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.5f, 1.5f));
+	level1Button = new GameObject((LPSTR)"Assets/level1button.png", 1, 1, 256, 65, 0, 1, 1, 0, 0, D3DXVECTOR2(832.0f, 510.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.5f, 1.5f));
 	gameObject.push_back(level1Button);
-	GameObject* level2Button = new GameObject((LPSTR)"Assets/level2button.png", 1, 1, 256, 65, 0, 1, 1, 0, 0, D3DXVECTOR2(795.0f, 570.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.5f, 1.5f));
+	level2Button = new GameObject((LPSTR)"Assets/level2button.png", 1, 1, 256, 65, 0, 1, 1, 0, 0, D3DXVECTOR2(832.0f, 670.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.5f, 1.5f));
 	gameObject.push_back(level2Button);
-	GameObject* quitGameButton = new GameObject((LPSTR)"Assets/quitbutton.png", 1, 1, 256, 65, 0, 1, 1, 0, 0, D3DXVECTOR2(795.0f, 770.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.5f, 1.5f));
+	quitGameButton = new GameObject((LPSTR)"Assets/quitbutton.png", 1, 1, 256, 65, 0, 1, 1, 0, 0, D3DXVECTOR2(832.0f, 830.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.5f, 1.5f));
 	gameObject.push_back(quitGameButton);
-	GameObject* muteButton = new GameObject((LPSTR)"Assets/mutebutton.png", 1, 1, 64, 64, 0, 1, 1, 0, 0, D3DXVECTOR2(695.0f, 970.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
+	muteButton = new GameObject((LPSTR)"Assets/mutebutton.png", 1, 1, 64, 64, 0, 1, 1, 0, 0, D3DXVECTOR2(635.0f, 970.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(muteButton);
-	GameObject* minusButton = new GameObject((LPSTR)"Assets/minusbutton.png", 1, 1, 64, 64, 0, 1, 1, 0, 0, D3DXVECTOR2(805.0f, 970.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
+	minusButton = new GameObject((LPSTR)"Assets/minusbutton.png", 1, 1, 64, 64, 0, 1, 1, 0, 0, D3DXVECTOR2(745.0f, 970.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(minusButton);
-	GameObject* addButton = new GameObject((LPSTR)"Assets/addbutton.png", 1, 1, 64, 64, 0, 1, 1, 0, 0, D3DXVECTOR2(1115.0f, 970.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
+	addButton = new GameObject((LPSTR)"Assets/addbutton.png", 1, 1, 64, 64, 0, 1, 1, 0, 0, D3DXVECTOR2(1115.0f, 970.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(addButton);
-	GameObject* unmuteButton = new GameObject((LPSTR)"Assets/unmutebutton.png", 1, 1, 64, 64, 0, 1, 1, 0, 0, D3DXVECTOR2(1225.0f, 970.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
+	unmuteButton = new GameObject((LPSTR)"Assets/unmutebutton.png", 1, 1, 64, 64, 0, 1, 1, 0, 0, D3DXVECTOR2(1225.0f, 970.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(unmuteButton);
-	GameObject* mouseCursor = new GameObject((LPSTR)"Assets/pointer.png", 1, 1, 32, 32, 0, 1, 1, 0, 0, D3DXVECTOR2(700.0f, 500.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
+	mouseCursor = new GameObject((LPSTR)"Assets/pointer.png", 1, 1, 32, 32, 0, 1, 1, 0, 0, D3DXVECTOR2(700.0f, 500.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(mouseCursor);
 }
 
@@ -75,6 +75,13 @@ void MainMenu::Update()
 	addButton = gameObject.at(6);
 	unmuteButton = gameObject.at(7);
 	mouseCursor = gameObject.at(8);
+
+	bool leftMouseDown = DirectInputManager::mouseState.rgbButtons[0] & 0x80;
+
+	if (!leftMouseDown)
+	{
+		levelButtonReady = true;
+	}
 
 	for (int i = 0; i < frameTimer->framesToUpdate(); i++)
 	{
@@ -92,18 +99,105 @@ void MainMenu::Update()
 		mouseCursor->pos.x += DirectInputManager::mouseState.lX * 5.0;
 		mouseCursor->pos.y += DirectInputManager::mouseState.lY * 5.0;
 
+		// Mouse Boundary
+		// Up
+		if (mouseCursor->pos.y < 0)
+		{
+			mouseCursor->pos.y = 0;
+		}
+		// Down
+		if (mouseCursor->pos.y > WindowManager::ScreenHeight - mouseCursor->spriteHeight * mouseCursor->scaling.y)
+		{
+			mouseCursor->pos.y = WindowManager::ScreenHeight - mouseCursor->spriteHeight * mouseCursor->scaling.y;
+		}
+		// Right
+		if (mouseCursor->pos.x > WindowManager::ScreenWidth - mouseCursor->spriteWidth * mouseCursor->scaling.x)
+		{
+			mouseCursor->pos.x = WindowManager::ScreenWidth - mouseCursor->spriteWidth * mouseCursor->scaling.x;
+		}
+		// Left
+		if (mouseCursor->pos.x < 0)
+		{
+			mouseCursor->pos.x = 0;
+		}
+
+		// Update collision rectangle after boundary correction
+		mouseCursor->colRect.top = mouseCursor->pos.y;
+		mouseCursor->colRect.bottom = mouseCursor->colRect.top + ((float)mouseCursor->spriteHeight * mouseCursor->scaling.y);
+		mouseCursor->colRect.left = mouseCursor->pos.x;
+		mouseCursor->colRect.right = mouseCursor->colRect.left + ((float)mouseCursor->spriteWidth * mouseCursor->scaling.x);
+
+		GameObject* currentHoveredButton = nullptr;
+
+		if (CollisionDetection(level1Button->colRect, mouseCursor->colRect))
+		{
+			currentHoveredButton = level1Button;
+		}
+		else if (CollisionDetection(level2Button->colRect, mouseCursor->colRect))
+		{
+			currentHoveredButton = level2Button;
+		}
+		else if (CollisionDetection(quitGameButton->colRect, mouseCursor->colRect))
+		{
+			currentHoveredButton = quitGameButton;
+		}
+		else if (circleCollisionDetection(
+			mouseCursor->spriteWidth * mouseCursor->scaling.x / 2,
+			muteButton->spriteWidth * muteButton->scaling.x / 2 * 0.7,
+			mouseCursor->pos + mouseCursor->spriteCenter,
+			muteButton->pos + muteButton->spriteCenter))
+		{
+			currentHoveredButton = muteButton;
+		}
+		else if (circleCollisionDetection(
+			mouseCursor->spriteWidth * mouseCursor->scaling.x / 2,
+			minusButton->spriteWidth * minusButton->scaling.x / 2 * 0.7,
+			mouseCursor->pos + mouseCursor->spriteCenter,
+			minusButton->pos + minusButton->spriteCenter))
+		{
+			currentHoveredButton = minusButton;
+		}
+		else if (circleCollisionDetection(
+			mouseCursor->spriteWidth * mouseCursor->scaling.x / 2,
+			addButton->spriteWidth * addButton->scaling.x / 2 * 0.7,
+			mouseCursor->pos + mouseCursor->spriteCenter,
+			addButton->pos + addButton->spriteCenter))
+		{
+			currentHoveredButton = addButton;
+		}
+		else if (circleCollisionDetection(
+			mouseCursor->spriteWidth * mouseCursor->scaling.x / 2,
+			unmuteButton->spriteWidth * unmuteButton->scaling.x / 2 * 0.7,
+			mouseCursor->pos + mouseCursor->spriteCenter,
+			unmuteButton->pos + unmuteButton->spriteCenter))
+		{
+			currentHoveredButton = unmuteButton;
+		}
+
+		if (currentHoveredButton != nullptr && currentHoveredButton != previousHoveredButton)
+		{
+			AudioManager::PlayMouseHoverSound();
+		}
+
+		previousHoveredButton = currentHoveredButton;
+
 		// collision detection of mouse cursor with the level 1 button
 		if (CollisionDetection(level1Button->colRect, mouseCursor->colRect))
 		{
 			level1Button->scaling.x = 1.55f;
 			level1Button->scaling.y = 1.55f;
 
-			if (DirectInputManager::mouseState.rgbButtons[0] & 0x80) {
+			if (levelButtonReady && leftMouseDown)
+			{
+				levelButtonReady = false;
+
 				AudioManager::StopBackgroundMusic();
+				AudioManager::PlaySelectSound();
 
 				Game::gameStack.push_back(new Level1());
 				Game::gameStack.back()->InitialiseGame();
-				break;
+
+				return;
 			}
 		}
 		else {
@@ -117,12 +211,17 @@ void MainMenu::Update()
 			level2Button->scaling.x = 1.55f;
 			level2Button->scaling.y = 1.55f;
 
-			if (DirectInputManager::mouseState.rgbButtons[0] & 0x80) {
+			if (levelButtonReady && leftMouseDown)
+			{
+				levelButtonReady = false;
+
 				AudioManager::StopBackgroundMusic();
+				AudioManager::PlaySelectSound();
 
 				Game::gameStack.push_back(new Level2());
 				Game::gameStack.back()->InitialiseGame();
-				break;
+
+				return;
 			}
 		}
 		else {
@@ -138,9 +237,10 @@ void MainMenu::Update()
 
 
 			if (DirectInputManager::mouseState.rgbButtons[0] & 0x80) {
+				AudioManager::PlaySelectSound();
+
 				PostQuitMessage(0);
 			}
-
 		}
 		else {
 			quitGameButton->scaling.x = 1.5f;
@@ -196,7 +296,7 @@ void MainMenu::Update()
 		}
 
 		// collision detection of mouse cursor with the add volume button
-		if (circleCollisionDetection(mouseCursor->spriteWidth * mouseCursor->scaling.x / 2, addButton->spriteWidth * addButton->scaling.x / 2 * 0.7, mouseCursor->pos + mouseCursor->spriteCenter, addButton->pos + minusButton->spriteCenter))
+		if (circleCollisionDetection(mouseCursor->spriteWidth * mouseCursor->scaling.x / 2, addButton->spriteWidth * addButton->scaling.x / 2 * 0.7, mouseCursor->pos + mouseCursor->spriteCenter, addButton->pos + addButton->spriteCenter))
 		{
 			addButton->scaling.x = 1.10f;
 			addButton->scaling.y = 1.10f;
@@ -238,33 +338,6 @@ void MainMenu::Update()
 			unmuteButton->scaling.x = 1.0f;
 			unmuteButton->scaling.y = 1.0f;
 		}
-
-		mouseCursor->colRect.top = mouseCursor->pos.y;
-		mouseCursor->colRect.bottom = mouseCursor->colRect.top + ((float)mouseCursor->spriteHeight * mouseCursor->scaling.y);
-		mouseCursor->colRect.left = mouseCursor->pos.x;
-		mouseCursor->colRect.right = mouseCursor->colRect.left + ((float)mouseCursor->spriteWidth * mouseCursor->scaling.x);
-
-		//Mouse Boundary
-		//up
-		if (mouseCursor->pos.y < 0)
-		{
-			mouseCursor->pos.y = 0;
-		}
-		//down
-		if (mouseCursor->pos.y > WindowManager::ScreenHeight - mouseCursor->spriteHeight * mouseCursor->scaling.y)
-		{
-			mouseCursor->pos.y = WindowManager::ScreenHeight - mouseCursor->spriteHeight * mouseCursor->scaling.y;
-		}
-		//right
-		if (mouseCursor->pos.x > WindowManager::ScreenWidth - mouseCursor->spriteWidth * mouseCursor->scaling.x)
-		{
-			mouseCursor->pos.x = WindowManager::ScreenWidth - mouseCursor->spriteWidth * mouseCursor->scaling.x;
-		}
-		//left
-		if (mouseCursor->pos.x < 0)
-		{
-			mouseCursor->pos.x = 0;
-		}
 	}
 
 	if (DirectInputManager::diKeys[DIK_ESCAPE] & 0x80) {
@@ -281,24 +354,26 @@ void MainMenu::Render()
 	DirectXManager::spriteBrush->Begin(D3DXSPRITE_ALPHABLEND);
 
 	NebulaBG.Render();
-
 	FarStarsBG.Render();
-
 	MiddleStarsBG.Render();
-
 	PlanetBG.Render();
-
 	DenseStarsBG.Render();
-
 	NearStarsBG.Render();
-
 	AsteroidBG1.Render();
-
 	AsteroidBG2.Render();
 
-	for (GameObject* gameObject : gameObject)
+	for (GameObject* gameObject:gameObject)
 	{
-		D3DXMatrixTransformation2D(&gameObject->mat, NULL, 0.0, &gameObject->scaling, &gameObject->spriteCenter, gameObject->rotation, &gameObject->pos);
+		D3DXVECTOR2* scalingCenter = NULL;
+
+		if (gameObject == level1Button || gameObject == level2Button || gameObject == quitGameButton ||
+			gameObject == muteButton || gameObject == minusButton || gameObject == addButton ||
+			gameObject == unmuteButton)
+		{
+			scalingCenter = &gameObject->spriteCenter;
+		}
+		
+		D3DXMatrixTransformation2D(&gameObject->mat, scalingCenter, 0.0, &gameObject->scaling, &gameObject->spriteCenter, gameObject->rotation, &gameObject->pos);
 
 		DirectXManager::spriteBrush->SetTransform(&gameObject->mat);
 
@@ -306,20 +381,19 @@ void MainMenu::Render()
 		{
 			DirectXManager::spriteBrush->Draw(gameObject->texture, &gameObject->titleRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
 		}
-		else{
+		else
+		{
 			DirectXManager::spriteBrush->Draw(gameObject->texture, &gameObject->animRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
 		}
-		
-
 
 	}
 
 	DirectXManager::spriteBrush->End();
 
 	RECT volumeRect;
-	volumeRect.left = 850;
+	volumeRect.left = 0;
 	volumeRect.top = 970;
-	volumeRect.right = 1130;
+	volumeRect.right = WindowManager::ScreenWidth;
 	volumeRect.bottom = 1035;
 
 	string volumeText = to_string(volume);
@@ -334,26 +408,39 @@ void MainMenu::Render()
 void MainMenu::CleanUp()
 {
 	NebulaBG.CleanUp();
-
 	FarStarsBG.CleanUp();
-
 	MiddleStarsBG.CleanUp();
-
 	PlanetBG.CleanUp();
-
 	DenseStarsBG.CleanUp();
-
 	NearStarsBG.CleanUp();
-
 	AsteroidBG1.CleanUp();
-
 	AsteroidBG2.CleanUp();
 
-	for (GameObject* gameObject : gameObject) {
-		gameObject->texture->Release();
-		gameObject->texture = NULL;
+	for (GameObject* obj : gameObject)
+	{
+		if (obj != nullptr)
+		{
+			if (obj->texture != nullptr)
+			{
+				obj->texture->Release();
+				obj->texture = nullptr;
+			}
+
+			delete obj;
+		}
 	}
+
 	gameObject.clear();
+
+	gameTitle = nullptr;
+	level1Button = nullptr;
+	level2Button = nullptr;
+	quitGameButton = nullptr;
+	muteButton = nullptr;
+	minusButton = nullptr;
+	addButton = nullptr;
+	unmuteButton = nullptr;
+	mouseCursor = nullptr;
 }
 
 MainMenu::MainMenu()

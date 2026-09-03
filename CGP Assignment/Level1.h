@@ -11,6 +11,7 @@ class Level1 :
     public Game
 {
 public:
+    GameObject* bg;
     GameObject* platform5;
     GameObject* platform4;
     GameObject* platform3;
@@ -18,7 +19,7 @@ public:
     GameObject* platform;
     GameObject* destination;
     GameObject* militia;
-    bool canJump;
+    bool canJump = false;
     bool playLandSound = false;
     bool isWalking = false;
     int previousFrame = 0;
@@ -27,5 +28,6 @@ public:
     void CleanUp();
     float gravity;
     float friction;
+    float groundY = 990.0f;
     Level1();
 };

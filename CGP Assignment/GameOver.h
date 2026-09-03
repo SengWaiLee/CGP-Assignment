@@ -19,18 +19,15 @@ public:
 	ParallaxLayer AsteroidBG1;
 	ParallaxLayer AsteroidBG2;
 
+	GameObject* gameOver;
 	GameObject* replayButton;
-
 	GameObject* mainMenuButton;
-
 	GameObject* mouseCursor;
+	GameObject* previousHoveredButton = nullptr;
 
 	void InitialiseGame() override;
-
 	void Update() override;
-
 	void Render() override;
-
 	void CleanUp() override;
 
 	GameOver();

@@ -4,17 +4,20 @@
 class AudioManager
 {
 public:
-	static FMOD::System* system; //virtual sound card
+	static FMOD::System* system; // Virtual sound card
 	static FMOD::Sound* mainMenuSound;
 	static FMOD::Sound* level1Sound;
 	static FMOD::Sound* level2Sound;
 	static FMOD::Sound* jumpSound;
 	static FMOD::Sound* landSound;
 	static FMOD::Sound* footstepSound;
+	static FMOD::Sound* mouseHoverSound;
 	static FMOD::Sound* UISelectSound;
 	static FMOD::Sound* victory;
-	static FMOD::Channel* channel; //to manipulate the sound
+	static FMOD::Channel* channel; // To manipulate the sound
+	static FMOD::Channel* hoverChannel;
 	static FMOD::Channel* bgmChannel;
+	static FMOD::Channel* victoryChannel;
 	static FMOD_RESULT result;
 	void* extradriverdata = 0;
 
@@ -26,8 +29,9 @@ public:
 	static void PauseSound();
 	static void PlayLandSound();
 	static void PlayFootstepSound();
-	static void PlayVictorySound();
+	static void PlayMouseHoverSound();
 	static void PlaySelectSound();
+	static void PlayVictorySound();
 	static void StopBackgroundMusic();
 	static void StopVictorySound();
 	void PlaySoundTrack();

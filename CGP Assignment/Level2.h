@@ -8,6 +8,7 @@ class Level2 :
 {
 public:
     float friction = 0.9f;
+    GameObject* bg;
     GameObject* spaceship1;
     GameObject* spaceship2;
     void InitialiseGame();

@@ -13,6 +13,7 @@ GameObject::GameObject(LPSTR textureName, int row, int col, int textureWidth, in
 	this->textureHeight = textureHeight;
 	this->spriteHeight = textureHeight / row;
 	this->spriteWidth = textureWidth / col;
+	this->currentFrame = currentFrame;
 	this->maxFrame = maxFrame;
 	this->speed = speed;
 	this->mass = mass;
@@ -37,6 +38,7 @@ GameObject::GameObject(LPSTR textureName, int row, int col, int textureWidth, in
 	this->colRect.right = this->colRect.left + ((float)this->spriteWidth * scaling.x);
 	this->scaling = scaling;
 	this->spriteCenter = D3DXVECTOR2((float)spriteWidth / 2, (float)spriteHeight / 2);
+	this->rotation = 0.0f;
 }
 
 GameObject::GameObject()

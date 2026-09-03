@@ -17,6 +17,7 @@ public:
 	virtual void Update();
 	virtual void Render();
 	virtual void CleanUp();
+	virtual ~Game();
 	Game();
 	bool CollisionDetection(RECT A, RECT B);
 	bool circleCollisionDetection(float a, float b, D3DXVECTOR2 positionA, D3DXVECTOR2 positionB);
