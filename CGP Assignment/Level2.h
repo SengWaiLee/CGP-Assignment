@@ -15,5 +15,6 @@ public:
     void Update();
     void RenderText();
     void CleanUp();
+    void Render() override;
     Level2();
 };

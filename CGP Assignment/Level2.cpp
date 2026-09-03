@@ -1,4 +1,7 @@
 #include "Level2.h"
+#include <string>
+#include <sstream>
+#include <iomanip>
 
 void Level2::InitialiseGame()
 {
@@ -234,21 +237,128 @@ void Level2::Update()
 	}
 }
 
+void Level2::Render()
+{
+	DirectXManager::myVirtualGPU->Clear(
+		0,
+		NULL,
+		D3DCLEAR_TARGET,
+		D3DCOLOR_XRGB(0, 0, 0),
+		1.0f,
+		0
+	);
+
+	DirectXManager::myVirtualGPU->BeginScene();
+
+	DirectXManager::spriteBrush->Begin(
+		D3DXSPRITE_ALPHABLEND
+	);
+
+
+	for (GameObject* object : gameObject)
+	{
+		D3DXMatrixTransformation2D(
+			&object->mat,
+			NULL,
+			0.0f,
+			&object->scaling,
+			&object->spriteCenter,
+			object->rotation,
+			&object->pos
+		);
+
+		DirectXManager::spriteBrush->SetTransform(
+			&object->mat
+		);
+
+		DirectXManager::spriteBrush->Draw(
+			object->texture,
+			&object->animRect,
+			NULL,
+			NULL,
+			D3DCOLOR_XRGB(255, 255, 255)
+		);
+	}
+
+	DirectXManager::spriteBrush->End();
+
+	RenderText();
+
+	DirectXManager::myVirtualGPU->EndScene();
+
+	DirectXManager::myVirtualGPU->Present(
+		NULL,
+		NULL,
+		NULL,
+		NULL
+	);
+}
+
 void Level2::RenderText()
 {
-	RECT levelRect;
+	float spaceship1Speed =
+		D3DXVec2Length(&spaceship1->vel);
 
-	levelRect.left = 0;
-	levelRect.top = 50;
-	levelRect.right = WindowManager::ScreenWidth;
-	levelRect.bottom = 120;
+	stringstream ship1Info;
 
-	DirectXManager::font->DrawText(
+	ship1Info
+		<< fixed
+		<< setprecision(2);
+
+	ship1Info
+		<< "Spaceship 1\n"
+		<< "Mass: "
+		<< spaceship1->mass
+		<< "\n"
+		<< "Velocity: "
+		<< spaceship1Speed;
+
+	RECT ship1TextRect;
+
+	ship1TextRect.left = 50;
+	ship1TextRect.top = 50;
+	ship1TextRect.right = 700;
+	ship1TextRect.bottom = 250;
+
+	DirectXManager::font->DrawTextA(
 		NULL,
-		"LEVEL 2",
+		ship1Info.str().c_str(),
 		-1,
-		&levelRect,
-		DT_CENTER,
+		&ship1TextRect,
+		DT_LEFT,
+		D3DCOLOR_XRGB(255, 255, 255)
+	);
+
+	float spaceship2Speed =
+		D3DXVec2Length(&spaceship2->vel);
+
+	stringstream ship2Info;
+
+	ship2Info
+		<< fixed
+		<< setprecision(2);
+
+	ship2Info
+		<< "Spaceship 2\n"
+		<< "Mass: "
+		<< spaceship2->mass
+		<< "\n"
+		<< "Velocity: "
+		<< spaceship2Speed;
+
+	RECT ship2TextRect;
+
+	ship2TextRect.left = 1200;
+	ship2TextRect.top = 50;
+	ship2TextRect.right = 1870;
+	ship2TextRect.bottom = 250;
+
+	DirectXManager::font->DrawTextA(
+		NULL,
+		ship2Info.str().c_str(),
+		-1,
+		&ship2TextRect,
+		DT_LEFT,
 		D3DCOLOR_XRGB(255, 255, 255)
 	);
 }
