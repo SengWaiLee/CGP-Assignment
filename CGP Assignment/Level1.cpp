@@ -35,13 +35,6 @@ void Level1::InitialiseGame()
 
 void Level1::Update()
 {
-	platform5 = gameObject.at(1);
-	platform4 = gameObject.at(2);
-	platform3 = gameObject.at(3);
-	platform2 = gameObject.at(4);
-	platform = gameObject.at(5);
-	destination = gameObject.at(6);
-	militia = gameObject.at(7);
 
 	for (int i = 0; i < frameTimer->framesToUpdate(); i++)
 	{
