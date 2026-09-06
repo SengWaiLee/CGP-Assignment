@@ -48,7 +48,6 @@ void Game::CleanUp()
 
 Game::Game()
 {
-
 	frameTimer->init(30);
 }
 
