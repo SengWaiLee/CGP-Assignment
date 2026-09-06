@@ -43,16 +43,14 @@ GameObject::GameObject(LPSTR textureName, int row, int col, int textureWidth, in
 
 void GameObject::UpdateScaleFromMass()
 {
-	float scale =
-		0.5f + (mass * 0.075f);
+	float scale = 0.5f + (mass * 0.075f);
 
-	if (scale > 3.0f)
+	if (scale > 10.0f)
 	{
-		scale = 3.0f;
+		scale = 10.0f;
 	}
 
-	scaling =
-		D3DXVECTOR2(scale, scale);
+	scaling = D3DXVECTOR2(scale, scale);
 }
 
 void GameObject::AddMass(int amount)

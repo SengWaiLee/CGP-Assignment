@@ -35,10 +35,6 @@ void Level1::InitialiseGame()
 
 void Level1::Update()
 {
-<<<<<<< HEAD
-=======
-
->>>>>>> a1c45bd3aad7372fed12bc7bab0bee7802b26ccf
 	for (int i = 0; i < frameTimer->framesToUpdate(); i++)
 	{
 		destination->currentFrame++;

@@ -169,6 +169,14 @@ void Level2::Update()
 		spaceship1->currentFrame++;
 		spaceship2->currentFrame++;
 
+		if (DirectInputManager::diKeys[DIK_1] & 0x80)
+		{
+			float x = rand() % WindowManager::ScreenWidth;
+			float y = rand() % WindowManager::ScreenHeight;
+
+			SpawnAsteroid(x, y);;
+		}
+
 		if (DirectInputManager::diKeys[DIK_W] & 0x80) 
 		{
 			spaceship1->engineForce.x = spaceship1->speed * sin(spaceship1->rotation);
