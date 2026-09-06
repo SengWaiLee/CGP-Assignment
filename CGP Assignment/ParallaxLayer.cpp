@@ -26,8 +26,7 @@ ParallaxLayer::~ParallaxLayer()
 
 bool ParallaxLayer::Initialise(const char* textureName,RECT rect,float moveSpeed,float y)
 {
-    HRESULT hr =
-        D3DXCreateTextureFromFileA(DirectXManager::myVirtualGPU,textureName,&texture);
+    HRESULT hr = D3DXCreateTextureFromFileA(DirectXManager::myVirtualGPU,textureName,&texture);
 
     if (FAILED(hr))
     {
@@ -42,11 +41,11 @@ bool ParallaxLayer::Initialise(const char* textureName,RECT rect,float moveSpeed
 
     segmentWidth = static_cast<float>(sourceRect.right - sourceRect.left);
 
-    position[0] =D3DXVECTOR3(0.0f,yPosition,0.0f);
+    position[0] = D3DXVECTOR3(0.0f,yPosition,0.0f);
 
-    position[1] =D3DXVECTOR3(segmentWidth,yPosition,0.0f);
+    position[1] = D3DXVECTOR3(segmentWidth,yPosition,0.0f);
 
-    position[2] =D3DXVECTOR3(segmentWidth * 2.0f,yPosition,0.0f);
+    position[2] = D3DXVECTOR3(segmentWidth * 2.0f,yPosition,0.0f);
 
     return true;
 }
@@ -60,8 +59,7 @@ void ParallaxLayer::Update()
 
         if (position[i].x <= -segmentWidth)
         {
-            position[i].x +=
-                segmentWidth * 3.0f;
+            position[i].x += segmentWidth * 3.0f;
         }
     }
 }

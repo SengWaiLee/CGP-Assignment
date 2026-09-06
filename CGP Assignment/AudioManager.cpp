@@ -9,10 +9,12 @@ FMOD::Sound* AudioManager::level2Sound;
 FMOD::Sound* AudioManager::jumpSound;
 FMOD::Sound* AudioManager::landSound;
 FMOD::Sound* AudioManager::footstepSound;
+FMOD::Sound* AudioManager::collectAsteroidSound;
 FMOD::Sound* AudioManager::UISelectSound;
 FMOD::Sound* AudioManager::mouseHoverSound;
 FMOD::Sound* AudioManager::victory;
 FMOD::Channel* AudioManager::channel;
+FMOD::Channel* AudioManager::collectChannel;
 FMOD::Channel* AudioManager::hoverChannel;
 FMOD::Channel* AudioManager::bgmChannel;
 FMOD::Channel* AudioManager::victoryChannel;
@@ -112,6 +114,23 @@ void AudioManager::PlayFootstepSound(float pan)
 	}
 
 	channel->setPan(pan);
+}
+
+void AudioManager::PlayCollectAsteroidSound()
+{
+	result = system->playSound(collectAsteroidSound, 0, true, &collectChannel);
+
+	if (isMuted)
+	{
+		collectChannel->setVolume(0.0f);
+	}
+	else
+	{
+		collectChannel->setVolume(SOUND_VOLUME * 0.8f);
+	}
+
+	collectChannel->setPan(0.0f);
+	collectChannel->setPaused(false);
 }
 
 void AudioManager::PlayVictorySound()
@@ -302,6 +321,8 @@ void AudioManager::LoadSound()
 	result = landSound->setMode(FMOD_LOOP_OFF);
 	result = system->createSound("Assets/footsteps.wav", FMOD_DEFAULT, 0, &footstepSound);
 	result = footstepSound->setMode(FMOD_LOOP_OFF);
+	result = system->createSound("Assets/collectasteroid.ogg", FMOD_DEFAULT, 0, &collectAsteroidSound);
+	result = collectAsteroidSound->setMode(FMOD_LOOP_OFF);
 	result = system->createSound("Assets/victory.wav", FMOD_DEFAULT, 0, &victory);
 	result = victory->setMode(FMOD_LOOP_OFF);
 	result = system->createSound("Assets/UIselect.wav", FMOD_DEFAULT, 0, &UISelectSound);

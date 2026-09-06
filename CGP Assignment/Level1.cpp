@@ -334,14 +334,7 @@ void Level1::RenderText()
 	levelRect.right = WindowManager::ScreenWidth;
 	levelRect.bottom = 120;
 
-	DirectXManager::font->DrawText(
-		NULL,
-		"LEVEL 1",
-		-1,
-		&levelRect,
-		DT_CENTER,
-		D3DCOLOR_XRGB(255, 255, 255)
-	);
+	DirectXManager::font->DrawText(NULL, "LEVEL 1", -1, &levelRect, DT_CENTER, D3DCOLOR_XRGB(255, 255, 255));
 
 	RECT objectiveRect;
 
@@ -350,14 +343,7 @@ void Level1::RenderText()
 	objectiveRect.right = 1000;
 	objectiveRect.bottom = 120;
 
-	DirectXManager::font->DrawText(
-		NULL,
-		"Objective: Reach the flag",
-		-1,
-		&objectiveRect,
-		DT_LEFT,
-		D3DCOLOR_XRGB(255, 255, 255)
-	);
+	DirectXManager::font->DrawText(NULL, "Objective: Reach the flag", -1, &objectiveRect, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
 
 	RECT movementRect;
 
@@ -366,14 +352,7 @@ void Level1::RenderText()
 	movementRect.right = 600;
 	movementRect.bottom = 180;
 
-	DirectXManager::font->DrawText(
-		NULL,
-		"A / D: Movement",
-		-1,
-		&movementRect,
-		DT_LEFT,
-		D3DCOLOR_XRGB(255, 255, 255)
-	);
+	DirectXManager::font->DrawText(NULL, "A / D: Movement", -1, &movementRect, DT_LEFT,D3DCOLOR_XRGB(255, 255, 255));
 
 	RECT jumpRect;
 
@@ -382,14 +361,8 @@ void Level1::RenderText()
 	jumpRect.right = 600;
 	jumpRect.bottom = 240;
 
-	DirectXManager::font->DrawText(
-		NULL,
-		"SPACE: Jump",
-		-1,
-		&jumpRect,
-		DT_LEFT,
-		D3DCOLOR_XRGB(255, 255, 255)
-	);
+	DirectXManager::font->DrawText(NULL, "SPACE: Jump", -1, &jumpRect, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
+
 	RECT InstrucRect;
 
 	InstrucRect.left = 50;
@@ -397,15 +370,7 @@ void Level1::RenderText()
 	InstrucRect.right = 600;
 	InstrucRect.bottom = 300;
 
-	DirectXManager::font->DrawText(
-		NULL,
-		"B : main menu",
-		-1,
-		&InstrucRect,
-		DT_LEFT,
-		D3DCOLOR_XRGB(255, 255, 255)
-	);
-
+	DirectXManager::font->DrawText(NULL, "B: Main Menu", -1, &InstrucRect, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
 }
 
 void Level1::CleanUp()

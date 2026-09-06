@@ -13,8 +13,10 @@ public:
 	static FMOD::Sound* footstepSound;
 	static FMOD::Sound* mouseHoverSound;
 	static FMOD::Sound* UISelectSound;
+	static FMOD::Sound* collectAsteroidSound;
 	static FMOD::Sound* victory;
 	static FMOD::Channel* channel; // To manipulate the sound
+	static FMOD::Channel* collectChannel;
 	static FMOD::Channel* hoverChannel;
 	static FMOD::Channel* bgmChannel;
 	static FMOD::Channel* victoryChannel;
@@ -29,6 +31,7 @@ public:
 	static void PauseSound();
 	static void PlayLandSound(float pan);
 	static void PlayFootstepSound(float pan);
+	static void PlayCollectAsteroidSound();
 	static void PlayMouseHoverSound();
 	static void PlaySelectSound();
 	static void PlayVictorySound();

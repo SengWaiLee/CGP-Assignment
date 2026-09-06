@@ -31,7 +31,7 @@ void Level2::InitialiseGame()
 
 void Level2::SpawnAsteroid(float x, float y)
 {
-	GameObject* asteroid = new GameObject((LPSTR)"Assets/b40000.png", 1, 1, 64, 64, 0, 1, 1, 0, 5, D3DXVECTOR2(x, y), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
+	GameObject* asteroid = new GameObject((LPSTR)"Assets/asteroid.png", 1, 1, 64, 64, 0, 1, 1, 0, 5, D3DXVECTOR2(x, y), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	asteroids.push_back(asteroid);
 	gameObject.push_back(asteroid);
 }
@@ -42,48 +42,25 @@ void Level2::CheckAsteroidCollision()
 	{
 		GameObject* asteroid = asteroids[i];
 
-		float ship1Radius =
-			(spaceship1->spriteWidth *
-				spaceship1->scaling.x)
-			/ 2.0f;
+		float ship1Radius = (spaceship1->spriteWidth * spaceship1->scaling.x) / 2.0f;
 
 		D3DXVECTOR2 ship1Center = spaceship1->pos;
-
-		float ship2Radius =
-			(spaceship2->spriteWidth *
-				spaceship2->scaling.x)
-			/ 2.0f;
-
 		D3DXVECTOR2 ship2Center = spaceship2->pos;
 
-
-		float asteroidRadius =
-			(asteroid->spriteWidth *
-				asteroid->scaling.x)
-			/ 2.0f;
+		float ship2Radius = (spaceship2->spriteWidth * spaceship2->scaling.x) / 2.0f;
+		float asteroidRadius = (asteroid->spriteWidth * asteroid->scaling.x) / 2.0f;
 
 		D3DXVECTOR2 asteroidCenter = asteroid->pos;
 
-
-		if (circleCollisionDetection(
-			ship1Radius,
-			asteroidRadius,
-			ship1Center,
-			asteroidCenter))
+		// Check collision between spaceship1 and asteroid
+		if (circleCollisionDetection(ship1Radius, asteroidRadius, ship1Center, asteroidCenter))
 		{
-			spaceship1->AddMass(
-				asteroid->mass
-			);
+			AudioManager::PlayCollectAsteroidSound(); 
+			
+			spaceship1->AddMass(asteroid->mass);
 
 			// Remove from game
-			gameObject.erase(
-				remove(
-					gameObject.begin(),
-					gameObject.end(),
-					asteroid
-				),
-				gameObject.end()
-			);
+			gameObject.erase(remove(gameObject.begin(), gameObject.end(),asteroid), gameObject.end());
 
 			if (asteroid->texture != NULL)
 			{
@@ -93,35 +70,21 @@ void Level2::CheckAsteroidCollision()
 
 			delete asteroid;
 
-			asteroids.erase(
-				asteroids.begin() + i
-			);
+			asteroids.erase(asteroids.begin() + i);
 
 			i--;
 
 			continue;
 		}
 
-
-
-		if (circleCollisionDetection(
-			ship2Radius,
-			asteroidRadius,
-			ship2Center,
-			asteroidCenter))
+		// Check collision between spaceship2 and asteroid
+		if (circleCollisionDetection(ship2Radius, asteroidRadius, ship2Center, asteroidCenter))
 		{
-			spaceship2->AddMass(
-				asteroid->mass
-			);
+			AudioManager::PlayCollectAsteroidSound(); 
+			
+			spaceship2->AddMass(asteroid->mass);
 
-			gameObject.erase(
-				remove(
-					gameObject.begin(),
-					gameObject.end(),
-					asteroid
-				),
-				gameObject.end()
-			);
+			gameObject.erase(remove(gameObject.begin(),	gameObject.end(), asteroid), gameObject.end());
 
 			if (asteroid->texture != NULL)
 			{
@@ -131,9 +94,7 @@ void Level2::CheckAsteroidCollision()
 
 			delete asteroid;
 
-			asteroids.erase(
-				asteroids.begin() + i
-			);
+			asteroids.erase(asteroids.begin() + i);
 
 			i--;
 
@@ -419,71 +380,48 @@ void Level2::Render()
 
 void Level2::RenderText()
 {
-	float spaceship1Speed =
-		D3DXVec2Length(&spaceship1->vel);
+	RECT levelRect;
+
+	levelRect.left = 0;
+	levelRect.top = 50;
+	levelRect.right = WindowManager::ScreenWidth;
+	levelRect.bottom = 120;
+
+	DirectXManager::font->DrawText(NULL, "LEVEL 2", -1, &levelRect, DT_CENTER, D3DCOLOR_XRGB(255, 255, 255)); 
+	
+	float spaceship1Speed = D3DXVec2Length(&spaceship1->vel);
 
 	stringstream ship1Info;
 
-	ship1Info
-		<< fixed
-		<< setprecision(2);
+	ship1Info << fixed << setprecision(2);
 
-	ship1Info
-		<< "Spaceship 1\n"
-		<< "Mass: "
-		<< spaceship1->mass
-		<< "\n"
-		<< "Velocity: "
-		<< spaceship1Speed;
+	ship1Info << "Spaceship 1\n" << "Mass: " << spaceship1->mass << "\n" << "Velocity: " << spaceship1Speed;
 
 	RECT ship1TextRect;
 
 	ship1TextRect.left = 50;
 	ship1TextRect.top = 50;
-	ship1TextRect.right = 700;
+	ship1TextRect.right = 450;
 	ship1TextRect.bottom = 250;
 
-	DirectXManager::font->DrawTextA(
-		NULL,
-		ship1Info.str().c_str(),
-		-1,
-		&ship1TextRect,
-		DT_LEFT,
-		D3DCOLOR_XRGB(255, 255, 255)
-	);
+	DirectXManager::font->DrawTextA(NULL, ship1Info.str().c_str(), -1, &ship1TextRect, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
 
-	float spaceship2Speed =
-		D3DXVec2Length(&spaceship2->vel);
+	float spaceship2Speed = D3DXVec2Length(&spaceship2->vel);
 
 	stringstream ship2Info;
 
-	ship2Info
-		<< fixed
-		<< setprecision(2);
+	ship2Info << fixed << setprecision(2);
 
-	ship2Info
-		<< "Spaceship 2\n"
-		<< "Mass: "
-		<< spaceship2->mass
-		<< "\n"
-		<< "Velocity: "
-		<< spaceship2Speed;
+	ship2Info << "Spaceship 2\n" << "Mass: " << spaceship2->mass << "\n" << "Velocity: " << spaceship2Speed;
 
 	RECT ship2TextRect;
 
-	ship2TextRect.left = 1200;
+	ship2TextRect.left = 1500;
 	ship2TextRect.top = 50;
-	ship2TextRect.right = 1870;
+	ship2TextRect.right = 1900;
 	ship2TextRect.bottom = 250;
 
-	DirectXManager::font->DrawTextA(
-		NULL,
-		ship2Info.str().c_str(),
-		-1,
-		&ship2TextRect,
-		DT_LEFT,
-		D3DCOLOR_XRGB(255, 255, 255)
-	);
+	DirectXManager::font->DrawTextA(NULL, ship2Info.str().c_str(), -1, &ship2TextRect, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
 
 	RECT InstrucRect;
 
@@ -492,14 +430,7 @@ void Level2::RenderText()
 	InstrucRect.right = 600;
 	InstrucRect.bottom = 1060;
 
-	DirectXManager::font->DrawText(
-		NULL,
-		"B : main menu",
-		-1,
-		&InstrucRect,
-		DT_LEFT,
-		D3DCOLOR_XRGB(255, 255, 255)
-	);
+	DirectXManager::font->DrawText(NULL, "B : Main Menu", -1, &InstrucRect, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
 }
 
 void Level2::CleanUp()
