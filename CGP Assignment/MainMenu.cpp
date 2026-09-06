@@ -67,15 +67,6 @@ void MainMenu::InitialiseGame()
 
 void MainMenu::Update()
 {
-	level1Button = gameObject.at(1);
-	level2Button = gameObject.at(2);
-	quitGameButton = gameObject.at(3);
-	muteButton = gameObject.at(4);
-	minusButton = gameObject.at(5);
-	addButton = gameObject.at(6);
-	unmuteButton = gameObject.at(7);
-	mouseCursor = gameObject.at(8);
-
 	bool leftMouseDown = DirectInputManager::mouseState.rgbButtons[0] & 0x80;
 
 	if (!leftMouseDown)

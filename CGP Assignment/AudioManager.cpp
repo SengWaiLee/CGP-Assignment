@@ -46,7 +46,7 @@ void AudioManager::PlayMainMenuSound()
 	bgmChannel->setPaused(false);
 }
 
-void AudioManager::PlayJumpSound()
+void AudioManager::PlayJumpSound(float pan)
 {
 	result = system->playSound(jumpSound, 0, true, &channel);
 
@@ -59,11 +59,11 @@ void AudioManager::PlayJumpSound()
 		channel->setVolume(SOUND_VOLUME * 0.8f);
 	}
 
-	channel->setPan(0.0f);
+	channel->setPan(pan);
 	channel->setPaused(false);
 }
 
-void AudioManager::PlayLandSound()
+void AudioManager::PlayLandSound(float pan)
 {
 	result = system->playSound(landSound, 0, true, &channel);
 
@@ -76,11 +76,11 @@ void AudioManager::PlayLandSound()
 		channel->setVolume(SOUND_VOLUME * 0.8f);
 	}
 
-	channel->setPan(0.0f);
+	channel->setPan(pan);
 	channel->setPaused(false);
 }
 
-void AudioManager::PlayFootstepSound()
+void AudioManager::PlayFootstepSound(float pan)
 {
 	bool isPlaying = false;
 
@@ -111,7 +111,7 @@ void AudioManager::PlayFootstepSound()
 		channel->setVolume(SOUND_VOLUME * 0.8f);
 	}
 
-	channel->setPan(0.0f);
+	channel->setPan(pan);
 }
 
 void AudioManager::PlayVictorySound()

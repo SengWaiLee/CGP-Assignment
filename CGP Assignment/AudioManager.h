@@ -25,10 +25,10 @@ public:
 	static void PlayMainMenuSound();
 	static void PlayLevel1Sound();
 	static void PlayLevel2Sound();
-	static void PlayJumpSound();
+	static void PlayJumpSound(float pan);
 	static void PauseSound();
-	static void PlayLandSound();
-	static void PlayFootstepSound();
+	static void PlayLandSound(float pan);
+	static void PlayFootstepSound(float pan);
 	static void PlayMouseHoverSound();
 	static void PlaySelectSound();
 	static void PlayVictorySound();

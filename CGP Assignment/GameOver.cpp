@@ -44,11 +44,7 @@ void GameOver::InitialiseGame()
 }
 
 void GameOver::Update()
-{
-	replayButton = gameObject.at(1);
-	mainMenuButton = gameObject.at(2);
-	mouseCursor = gameObject.at(3);
-	
+{	
 	for (int i = 0; i < frameTimer->framesToUpdate(); i++)
 	{
 		NebulaBG.Update();

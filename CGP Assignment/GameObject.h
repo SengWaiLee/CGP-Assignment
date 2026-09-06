@@ -35,6 +35,8 @@ public:
 	LPDIRECT3DTEXTURE9 texture;
 	GameObject(LPSTR textureName, int row, int col, int textureWidth, int textureHeight, int direction, int maxFrame, int currentFrame, int speed, int mass, D3DXVECTOR2 pos, D3DXVECTOR2 vel, D3DXVECTOR2 accel, int jumpForce,
 		D3DXVECTOR2 jumpVel, D3DXVECTOR2 jumpAccel, D3DXVECTOR2 scaling);
+	void UpdateScaleFromMass();
+	void AddMass(int amount);
 	GameObject();
 }
 ;

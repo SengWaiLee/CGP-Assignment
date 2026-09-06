@@ -35,14 +35,6 @@ void Level1::InitialiseGame()
 
 void Level1::Update()
 {
-	platform5 = gameObject.at(1);
-	platform4 = gameObject.at(2);
-	platform3 = gameObject.at(3);
-	platform2 = gameObject.at(4);
-	platform = gameObject.at(5);
-	destination = gameObject.at(6);
-	militia = gameObject.at(7);
-
 	for (int i = 0; i < frameTimer->framesToUpdate(); i++)
 	{
 		destination->currentFrame++;
@@ -66,12 +58,26 @@ void Level1::Update()
 		// Reset walking state
 		isWalking = false;
 
+		float playerCenterX = militia->pos.x + militia->spriteWidth * militia->scaling.x / 2.0f;
+
+		float pan =(playerCenterX /	WindowManager::ScreenWidth) * 2.0f - 1.0f;
+
+		if (pan < -1.0f)
+		{
+			pan = -1.0f;
+		}
+
+		if (pan > 1.0f)
+		{
+			pan = 1.0f;
+		}
+
 		// Checking input for space bar (Jump)
 		if (DirectInputManager::diKeys[DIK_SPACE] & 0x80) 
 		{
 			if (canJump == true) 
 			{
-				AudioManager::PlayJumpSound();
+				AudioManager::PlayJumpSound(pan);
 
 				militia->jumpAccel.y = militia->jumpForce / militia->mass;
 
@@ -122,7 +128,7 @@ void Level1::Update()
 			if (currentAnimationFrame == 1 || currentAnimationFrame == 3) 
 			{
 				cout << "FOOTSTEP TRIGGERED - Frame: " << currentAnimationFrame << endl;
-				AudioManager::PlayFootstepSound();
+				AudioManager::PlayFootstepSound(pan);
 			}
 		}
 
@@ -145,7 +151,7 @@ void Level1::Update()
 		{
 			if (playLandSound)
 			{
-				AudioManager::PlayLandSound();
+				AudioManager::PlayLandSound(pan);
 				playLandSound = false;
 			}
 
@@ -166,7 +172,7 @@ void Level1::Update()
 		{
 			if (playLandSound)
 			{
-				AudioManager::PlayLandSound();
+				AudioManager::PlayLandSound(pan);
 				playLandSound = false;
 			}
 
@@ -185,7 +191,7 @@ void Level1::Update()
 		{
 			if (playLandSound)
 			{
-				AudioManager::PlayLandSound();
+				AudioManager::PlayLandSound(pan);
 				playLandSound = false;
 			}
 
@@ -204,7 +210,7 @@ void Level1::Update()
 		{
 			if (playLandSound)
 			{
-				AudioManager::PlayLandSound();
+				AudioManager::PlayLandSound(pan);
 				playLandSound = false;
 			}
 
@@ -223,7 +229,7 @@ void Level1::Update()
 		{
 			if (playLandSound)
 			{
-				AudioManager::PlayLandSound();
+				AudioManager::PlayLandSound(pan);
 				playLandSound = false;
 			}
 
@@ -248,7 +254,7 @@ void Level1::Update()
 
 			if (playLandSound)
 			{
-				AudioManager::PlayLandSound();
+				AudioManager::PlayLandSound(pan);
 				playLandSound = false;
 			}
 
@@ -381,6 +387,21 @@ void Level1::RenderText()
 		"SPACE: Jump",
 		-1,
 		&jumpRect,
+		DT_LEFT,
+		D3DCOLOR_XRGB(255, 255, 255)
+	);
+	RECT InstrucRect;
+
+	InstrucRect.left = 50;
+	InstrucRect.top = 240;
+	InstrucRect.right = 600;
+	InstrucRect.bottom = 300;
+
+	DirectXManager::font->DrawText(
+		NULL,
+		"B : main menu",
+		-1,
+		&InstrucRect,
 		DT_LEFT,
 		D3DCOLOR_XRGB(255, 255, 255)
 	);

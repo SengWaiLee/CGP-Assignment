@@ -2,26 +2,148 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
+#include <algorithm>
+#include <cstdlib>
+#include <ctime>
 
 void Level2::InitialiseGame()
 {
+	srand((unsigned int)time(NULL));
 	AudioManager::PlayLevel2Sound();
 	
 	bg = new GameObject((LPSTR)"Assets/level2bg.png", 1, 1, 1920, 1080, 0, 1, 1, 0, 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	gameObject.push_back(bg);
-
-	spaceship1 = new GameObject((LPSTR)"Assets/spaceship.png", 2, 2, 64, 64, 0, 2, 1, 5, 20, D3DXVECTOR2(500.0f, 500.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
+	spaceship1 = new GameObject((LPSTR)"Assets/spaceship.png", 2, 2, 64, 64, 0, 2, 1, 5, 5, D3DXVECTOR2(500.0f, 500.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
+	spaceship1->UpdateScaleFromMass();
 	gameObject.push_back(spaceship1);
-
 	spaceship2 = new GameObject((LPSTR)"Assets/spaceship.png", 2, 2, 64, 64, 1, 2, 1, 5, 5, D3DXVECTOR2(300.0f, 500.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
+	spaceship2->UpdateScaleFromMass();
 	gameObject.push_back(spaceship2);
+
+	for (int i = 0; i < 8; i++)
+	{
+		float x = rand() % WindowManager::ScreenWidth;
+		float y = rand() % WindowManager::ScreenHeight;
+
+		SpawnAsteroid(x, y);
+	}
+}
+
+void Level2::SpawnAsteroid(float x, float y)
+{
+	GameObject* asteroid = new GameObject((LPSTR)"Assets/b40000.png", 1, 1, 64, 64, 0, 1, 1, 0, 5, D3DXVECTOR2(x, y), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), 0, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
+	asteroids.push_back(asteroid);
+	gameObject.push_back(asteroid);
+}
+
+void Level2::CheckAsteroidCollision()
+{
+	for (int i = 0; i < asteroids.size(); i++)
+	{
+		GameObject* asteroid = asteroids[i];
+
+		float ship1Radius =
+			(spaceship1->spriteWidth *
+				spaceship1->scaling.x)
+			/ 2.0f;
+
+		D3DXVECTOR2 ship1Center = spaceship1->pos;
+
+		float ship2Radius =
+			(spaceship2->spriteWidth *
+				spaceship2->scaling.x)
+			/ 2.0f;
+
+		D3DXVECTOR2 ship2Center = spaceship2->pos;
+
+
+		float asteroidRadius =
+			(asteroid->spriteWidth *
+				asteroid->scaling.x)
+			/ 2.0f;
+
+		D3DXVECTOR2 asteroidCenter = asteroid->pos;
+
+
+		if (circleCollisionDetection(
+			ship1Radius,
+			asteroidRadius,
+			ship1Center,
+			asteroidCenter))
+		{
+			spaceship1->AddMass(
+				asteroid->mass
+			);
+
+			// Remove from game
+			gameObject.erase(
+				remove(
+					gameObject.begin(),
+					gameObject.end(),
+					asteroid
+				),
+				gameObject.end()
+			);
+
+			if (asteroid->texture != NULL)
+			{
+				asteroid->texture->Release();
+				asteroid->texture = NULL;
+			}
+
+			delete asteroid;
+
+			asteroids.erase(
+				asteroids.begin() + i
+			);
+
+			i--;
+
+			continue;
+		}
+
+
+
+		if (circleCollisionDetection(
+			ship2Radius,
+			asteroidRadius,
+			ship2Center,
+			asteroidCenter))
+		{
+			spaceship2->AddMass(
+				asteroid->mass
+			);
+
+			gameObject.erase(
+				remove(
+					gameObject.begin(),
+					gameObject.end(),
+					asteroid
+				),
+				gameObject.end()
+			);
+
+			if (asteroid->texture != NULL)
+			{
+				asteroid->texture->Release();
+				asteroid->texture = NULL;
+			}
+
+			delete asteroid;
+
+			asteroids.erase(
+				asteroids.begin() + i
+			);
+
+			i--;
+
+			continue;
+		}
+	}
 }
 
 void Level2::Update()
 {
-	spaceship1 = gameObject.at(1);
-	spaceship2 = gameObject.at(2);
-
 	for (int i = 0; i < frameTimer->framesToUpdate(); i++)
 	{
 		spaceship1->engineForce.x = 0;
@@ -119,13 +241,16 @@ void Level2::Update()
 			return;
 		}
 
-		if (circleCollisionDetection(spaceship1->spriteWidth / 2, spaceship2->spriteWidth / 2, spaceship1->pos + spaceship1->spriteCenter, spaceship2->pos + spaceship2->spriteCenter))
+		
+		float radius1 = (spaceship1->spriteWidth * spaceship1->scaling.x) / 2.0f;
+		float radius2 =	(spaceship2->spriteWidth * spaceship2->scaling.x) / 2.0f;
+
+		// Find the centre positions of both spaceships
+		D3DXVECTOR2 center1 = spaceship1->pos;
+		D3DXVECTOR2 center2 = spaceship2->pos;
+
+		if (circleCollisionDetection(radius1, radius2, center1, center2))
 		{
-			// Find the centre positions of both spaceships
-			D3DXVECTOR2 center1 = spaceship1->pos + spaceship1->spriteCenter;
-			D3DXVECTOR2 center2 = spaceship2->pos + spaceship2->spriteCenter;
-			
-			// Find collision normal
 			D3DXVECTOR2 colNormal = center2 - center1;
 
 			float distance = D3DXVec2Length(&colNormal);
@@ -133,39 +258,35 @@ void Level2::Update()
 			if (distance > 0.0f)
 			{
 				D3DXVec2Normalize(&colNormal, &colNormal);
-				
-				float radius1 = spaceship1->spriteWidth / 2.0f;
-				float radius2 = spaceship2->spriteWidth / 2.0f;
-
 				float overlap = (radius1 + radius2) - distance;
 
 				if (overlap > 0.0f)
 				{
 					spaceship1->pos -= colNormal * (overlap / 2.0f);
+
 					spaceship2->pos += colNormal * (overlap / 2.0f);
 				}
 
-				// Relative velocity
 				D3DXVECTOR2 relativeVelocity = spaceship1->vel - spaceship2->vel;
 
-				// Velocity along collision normal
-				float velocityAlongNormal =	D3DXVec2Dot(&relativeVelocity, &colNormal);
+				float velocityAlongNormal = D3DXVec2Dot(&relativeVelocity, &colNormal);
 
-				// Only respond if spaceships are moving towards each other
 				if (velocityAlongNormal > 0)
 				{
 					float mass1 = spaceship1->mass;
+
 					float mass2 = spaceship2->mass;
 
 					float impulse = (2.0f * velocityAlongNormal) / (mass1 + mass2);
 
 					spaceship1->vel -= impulse * mass2 * colNormal;
+
 					spaceship2->vel += impulse * mass1 * colNormal;
 				}
 			}
-
 			cout << "collided" << endl;
 		}
+		
 
 		spaceship1->vel += spaceship1->accel;
 		spaceship2->vel += spaceship2->accel;
@@ -173,111 +294,110 @@ void Level2::Update()
 		spaceship1->pos += spaceship1->vel;
 		spaceship2->pos += spaceship2->vel;
 
+
 		// Spaceship 1 boundary
-		// Top boundary
-		if (spaceship1->pos.y < 0)
+		float halfWidth1 = (spaceship1->spriteWidth * spaceship1->scaling.x) / 2.0f;
+
+		float halfHeight1 =	(spaceship1->spriteHeight * spaceship1->scaling.y) / 2.0f;
+
+		float halfWidth2 = (spaceship2->spriteWidth * spaceship2->scaling.x) / 2.0f;
+
+		float halfHeight2 = (spaceship2->spriteHeight * spaceship2->scaling.y) / 2.0f;
+
+		// Top
+		if (spaceship1->pos.y < halfHeight1)
 		{
-			spaceship1->pos.y = 0;
+			spaceship1->pos.y =	halfHeight1;
+
 			spaceship1->vel.y *= -1;
 		}
 
-		// Bottom boundary
-		if (spaceship1->pos.y > WindowManager::ScreenHeight - spaceship1->spriteHeight)
+		// Bottom
+		if (spaceship1->pos.y >	WindowManager::ScreenHeight - halfHeight1)
 		{
-			spaceship1->pos.y = WindowManager::ScreenHeight - spaceship1->spriteHeight;
+			spaceship1->pos.y =	WindowManager::ScreenHeight - halfHeight1;
 
 			spaceship1->vel.y *= -1;
 		}
 
-		// Left boundary
-		if (spaceship1->pos.x < 0)
+		// Left
+		if (spaceship1->pos.x < halfWidth1)
 		{
-			spaceship1->pos.x = 0;
+			spaceship1->pos.x =	halfWidth1;
+
 			spaceship1->vel.x *= -1;
 		}
 
-		// Right boundary
-		if (spaceship1->pos.x > WindowManager::ScreenWidth - spaceship1->spriteWidth)
+		// Right
+		if (spaceship1->pos.x >	WindowManager::ScreenWidth - halfWidth1)
 		{
-			spaceship1->pos.x = WindowManager::ScreenWidth - spaceship1->spriteWidth;
+			spaceship1->pos.x =	WindowManager::ScreenWidth - halfWidth1;
 
 			spaceship1->vel.x *= -1;
 		}
 
 		// Spaceship 2 boundary
-		// Top boundary
-		if (spaceship2->pos.y < 0)
+		// Top
+		if (spaceship2->pos.y < halfHeight2)
 		{
-			spaceship2->pos.y = 0;
-			spaceship2->vel.y *= -1;
-		}
-
-		// Bottom boundary
-		if (spaceship2->pos.y > WindowManager::ScreenHeight - spaceship2->spriteHeight)
-		{
-			spaceship2->pos.y = WindowManager::ScreenHeight - spaceship2->spriteHeight;
+			spaceship2->pos.y =	halfHeight2;
 
 			spaceship2->vel.y *= -1;
 		}
 
-		// Left boundary
-		if (spaceship2->pos.x < 0)
+		// Bottom
+		if (spaceship2->pos.y >	WindowManager::ScreenHeight - halfHeight2)
 		{
-			spaceship2->pos.x = 0;
+			spaceship2->pos.y = WindowManager::ScreenHeight - halfHeight2;
+
+			spaceship2->vel.y *= -1;
+		}
+
+		// Left
+		if (spaceship2->pos.x < halfWidth2)
+		{
+			spaceship2->pos.x =	halfWidth2;
+
 			spaceship2->vel.x *= -1;
 		}
 
-		// Right boundary
-		if (spaceship2->pos.x > WindowManager::ScreenWidth - spaceship2->spriteWidth)
+		// Right
+		if (spaceship2->pos.x >	WindowManager::ScreenWidth - halfWidth2)
 		{
-			spaceship2->pos.x = WindowManager::ScreenWidth - spaceship2->spriteWidth;
+			spaceship2->pos.x =	WindowManager::ScreenWidth - halfWidth2;
 
 			spaceship2->vel.x *= -1;
 		}
+		CheckAsteroidCollision();
 	}
 }
 
 void Level2::Render()
 {
-	DirectXManager::myVirtualGPU->Clear(
-		0,
-		NULL,
-		D3DCLEAR_TARGET,
-		D3DCOLOR_XRGB(0, 0, 0),
-		1.0f,
-		0
-	);
+	DirectXManager::myVirtualGPU->Clear(0,NULL,D3DCLEAR_TARGET,D3DCOLOR_XRGB(0, 0, 0),1.0f,0);
 
 	DirectXManager::myVirtualGPU->BeginScene();
 
-	DirectXManager::spriteBrush->Begin(
-		D3DXSPRITE_ALPHABLEND
-	);
+	DirectXManager::spriteBrush->Begin(D3DXSPRITE_ALPHABLEND);
 
 
 	for (GameObject* object : gameObject)
 	{
-		D3DXMatrixTransformation2D(
-			&object->mat,
-			NULL,
-			0.0f,
-			&object->scaling,
-			&object->spriteCenter,
-			object->rotation,
-			&object->pos
-		);
+		D3DXVECTOR3 center(object->spriteCenter.x,object->spriteCenter.y,0.0f);
 
-		DirectXManager::spriteBrush->SetTransform(
-			&object->mat
-		);
+		D3DXMatrixTransformation2D(&object->mat,NULL,0.0f,&object->scaling,NULL,object->rotation,&object->pos);
 
-		DirectXManager::spriteBrush->Draw(
-			object->texture,
-			&object->animRect,
-			NULL,
-			NULL,
-			D3DCOLOR_XRGB(255, 255, 255)
-		);
+		DirectXManager::spriteBrush->SetTransform(&object->mat);
+
+		if (object == bg) 
+		{
+			DirectXManager::spriteBrush->Draw(object->texture, &object->animRect, NULL, NULL, D3DCOLOR_XRGB(255, 255, 255));
+		}
+		else 
+		{
+			DirectXManager::spriteBrush->Draw(object->texture, &object->animRect, &center, NULL, D3DCOLOR_XRGB(255, 255, 255));
+		}
+		
 	}
 
 	DirectXManager::spriteBrush->End();
@@ -286,12 +406,7 @@ void Level2::Render()
 
 	DirectXManager::myVirtualGPU->EndScene();
 
-	DirectXManager::myVirtualGPU->Present(
-		NULL,
-		NULL,
-		NULL,
-		NULL
-	);
+	DirectXManager::myVirtualGPU->Present(NULL,NULL,NULL,NULL);
 }
 
 void Level2::RenderText()
@@ -361,6 +476,22 @@ void Level2::RenderText()
 		DT_LEFT,
 		D3DCOLOR_XRGB(255, 255, 255)
 	);
+
+	RECT InstrucRect;
+
+	InstrucRect.left = 50;
+	InstrucRect.top = 1000;
+	InstrucRect.right = 600;
+	InstrucRect.bottom = 1060;
+
+	DirectXManager::font->DrawText(
+		NULL,
+		"B : main menu",
+		-1,
+		&InstrucRect,
+		DT_LEFT,
+		D3DCOLOR_XRGB(255, 255, 255)
+	);
 }
 
 void Level2::CleanUp()
@@ -380,6 +511,7 @@ void Level2::CleanUp()
 	}
 
 	gameObject.clear();
+	asteroids.clear();
 
 	bg = nullptr;
 	spaceship1 = nullptr;

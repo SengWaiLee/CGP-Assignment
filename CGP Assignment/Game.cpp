@@ -49,7 +49,7 @@ void Game::CleanUp()
 Game::Game()
 {
 
-	frameTimer->init(120);
+	frameTimer->init(30);
 }
 
 Game::~Game()
