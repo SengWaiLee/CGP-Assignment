@@ -305,6 +305,15 @@ void AudioManager::PlayLevel2Sound()
 
 	bgmChannel->setPan(0.0f);
 	bgmChannel->setPaused(false);
+	bgmChannel->setPitch(1.0f);
+}
+
+void AudioManager::ChangeLevel2Pitch(float pitch)
+{
+	if (bgmChannel != nullptr)
+	{
+		bgmChannel->setPitch(pitch);
+	}
 }
 
 void AudioManager::LoadSound()

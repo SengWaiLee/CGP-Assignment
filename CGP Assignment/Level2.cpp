@@ -20,7 +20,7 @@ void Level2::InitialiseGame()
 	spaceship2->UpdateScaleFromMass();
 	gameObject.push_back(spaceship2);
 
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 20; i++)
 	{
 		float x = rand() % WindowManager::ScreenWidth;
 		float y = rand() % WindowManager::ScreenHeight;
@@ -64,6 +64,7 @@ void Level2::CheckAsteroidCollision()
 
 		D3DXVECTOR2 asteroidCenter = asteroid->pos;
 
+
 		// Check collision between spaceship1 and asteroid
 		if (circleCollisionDetection(ship1Radius, asteroidRadius, ship1Center, asteroidCenter))
 		{
@@ -85,6 +86,15 @@ void Level2::CheckAsteroidCollision()
 			asteroids.erase(asteroids.begin() + i);
 
 			i--;
+
+			pitch += 0.05f;
+
+			if (pitch > 1.5f)
+			{
+				pitch = 1.5f;
+			}
+
+			AudioManager::ChangeLevel2Pitch(pitch);
 
 			continue;
 		}
