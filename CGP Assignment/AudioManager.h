@@ -31,7 +31,7 @@ public:
 	static void PauseSound();
 	static void PlayLandSound(float pan);
 	static void PlayFootstepSound(float pan);
-	static void PlayCollectAsteroidSound();
+	static void PlayCollectAsteroidSound(float pan);
 	static void PlayMouseHoverSound();
 	static void PlaySelectSound();
 	static void PlayVictorySound();

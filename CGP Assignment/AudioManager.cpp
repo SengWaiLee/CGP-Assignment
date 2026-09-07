@@ -116,7 +116,7 @@ void AudioManager::PlayFootstepSound(float pan)
 	channel->setPan(pan);
 }
 
-void AudioManager::PlayCollectAsteroidSound()
+void AudioManager::PlayCollectAsteroidSound(float pan)
 {
 	result = system->playSound(collectAsteroidSound, 0, true, &collectChannel);
 
@@ -129,7 +129,7 @@ void AudioManager::PlayCollectAsteroidSound()
 		collectChannel->setVolume(SOUND_VOLUME * 0.8f);
 	}
 
-	collectChannel->setPan(0.0f);
+	collectChannel->setPan(pan);
 	collectChannel->setPaused(false);
 }
 

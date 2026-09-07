@@ -42,6 +42,18 @@ void Level2::CheckAsteroidCollision()
 	{
 		GameObject* asteroid = asteroids[i];
 
+		float pan =	(asteroid->pos.x /	WindowManager::ScreenWidth)	* 2.0f - 1.0f;
+
+		if (pan < -1.0f)
+		{
+			pan = -1.0f;
+		}
+
+		if (pan > 1.0f)
+		{
+			pan = 1.0f;
+		}
+
 		float ship1Radius = (spaceship1->spriteWidth * spaceship1->scaling.x) / 2.0f;
 
 		D3DXVECTOR2 ship1Center = spaceship1->pos;
@@ -55,7 +67,7 @@ void Level2::CheckAsteroidCollision()
 		// Check collision between spaceship1 and asteroid
 		if (circleCollisionDetection(ship1Radius, asteroidRadius, ship1Center, asteroidCenter))
 		{
-			AudioManager::PlayCollectAsteroidSound(); 
+			AudioManager::PlayCollectAsteroidSound(pan); 
 			
 			spaceship1->AddMass(asteroid->mass);
 
@@ -80,7 +92,7 @@ void Level2::CheckAsteroidCollision()
 		// Check collision between spaceship2 and asteroid
 		if (circleCollisionDetection(ship2Radius, asteroidRadius, ship2Center, asteroidCenter))
 		{
-			AudioManager::PlayCollectAsteroidSound(); 
+			AudioManager::PlayCollectAsteroidSound(pan); 
 			
 			spaceship2->AddMass(asteroid->mass);
 
@@ -129,6 +141,7 @@ void Level2::Update()
 
 		spaceship1->currentFrame++;
 		spaceship2->currentFrame++;
+
 
 		if (DirectInputManager::diKeys[DIK_1] & 0x80)
 		{
